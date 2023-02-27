@@ -6,16 +6,17 @@
 </head>
 
 <body>
-    <nav class="flex">
+    <nav class="flex items-center justify-between w-11/12 m-auto bg-green-900 ">
         <div class="logo_container">
-		<img src=":" alt="">
+            <img width="100px" src="{{ Vite::asset('resources/images/ecp_logo.png') }}">
+
 
         </div>
         <div class="links">
-            <a>Home</a>
-            <a>How to Cast Vote</a>
-            <a>FAQs</a>
-            <a>Contact Us</a>
+            <a class="p-2">Home</a>
+            <a class="p-2">How to Cast Vote</a>
+            <a class="p-2">FAQs</a>
+            <a class="p-2">Contact Us</a>
         </div>
     </nav>
     <div class="container">
