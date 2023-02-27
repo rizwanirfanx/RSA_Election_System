@@ -6,8 +6,9 @@
 </head>
 
 <body>
-    <nav>
+    <nav class="flex">
         <div class="logo_container">
+		<img src=":" alt="">
 
         </div>
         <div class="links">
