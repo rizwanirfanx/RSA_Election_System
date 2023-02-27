@@ -27,3 +27,5 @@ In order to ensure that the Laravel community is welcoming to all, please review
 If you discover a security vulnerability within RSA, please send an e-mail to Rizwan Irfan or M.Saad via [rizwanirfanx@gmail.com](mailto:rizwanirfanx@gmail.com) , [saadwisdom452@gmail.com] (mailto:saadwisdom452@gmail.com). All security vulnerabilities will be promptly addressed.
 
 Saad Wisdome
+
+Saadi
