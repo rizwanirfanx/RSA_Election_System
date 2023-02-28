@@ -13,7 +13,7 @@
 
         </div>
         <div class="links">
-            <a class="p-2 hover:to-green-100">Home</a>
+            <a href="/" class="p-2 hover:to-green-100">Home</a>
             <a class="p-2">How to Cast Vote</a>
             <a class="p-2">FAQs</a>
             <a class="p-2">Contact Us</a>

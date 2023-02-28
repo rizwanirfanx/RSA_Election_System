@@ -22,3 +22,9 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('registration_page');
 });
+Route::get('/voter-verification', function () {
+    return view('voter_pass_verification');
+});
+Route::get('/vote', function () {
+    return view('voting_page');
+});

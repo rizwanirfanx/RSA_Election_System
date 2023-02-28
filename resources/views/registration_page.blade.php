@@ -25,9 +25,10 @@
                 <li>Be 18 years or Above - at the time of registration</li>
             </ul>
         </div>
-	<div class="warning_box bg-red-300 p-8 my-6 w-3/4 rounded-lg">
-		<p><span class="font-bold">Attention: </span>Registering as an Voter without the consent of the Holder of CNIC is illegal and will lead to criminal persecution</p>
-	</div>
+        <div class="warning_box bg-red-300 p-8 my-6 w-3/4 rounded-lg">
+            <p><span class="font-bold">Attention: </span>Registering as an Voter without the consent of the Holder of CNIC
+                is illegal and will lead to criminal persecution</p>
+        </div>
         <form class="flex flex-col w-5/6 ">
             <label for="name">Full Name</label>
             <input id="name" type="text" placeholder="Full Name" class="px-3 py-2 my-3">
@@ -46,7 +47,9 @@
 
             <button type="submit"
                 class="my-3 bg-green-900 hover:bg-green-600 text-white px-3 py-2 rounded ">Register</button>
-
+            <p class="text-gray-600 text-center">Already have an account?</p>
+            <a href="/login" type="submit"
+                class="my-3 bg-green-900 hover:bg-green-600 text-white px-3 py-2 rounded text-center">Login</a>
         </form>
     </div>
 @endsection
