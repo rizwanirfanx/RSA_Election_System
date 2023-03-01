@@ -31,3 +31,6 @@ Route::get('/vote', function () {
 Route::get('/results', function () {
     return view('election_results_page');
 });
+Route::get('/candidates', function () {
+    return view('candidates');
+});
