@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>App Name - @yield('title')</title>
+    <title>E-Voting @yield('title')</title>
     @vite('resources/css/app.css')
 </head>
 
