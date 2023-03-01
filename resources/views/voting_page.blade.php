@@ -17,7 +17,7 @@
             <p>Please Proceed to cast your vote for the available/Active Elections Being Held In Pakistan</p>
         </div>
 
-        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-6">
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-6 w-3/4">
             <table class="w-full text-sm text-left text-gray-500 ">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                     <tr>
@@ -35,24 +35,24 @@
                 <tbody>
                     <tr class="bg-white border-b ">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                            Apple MacBook Pro 17"
+				NA-32
                         </th>
                         <td class="px-6 py-4">
-                            Silver
+				Kohat
                         </td>
                         <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Vote</a>
                         </td>
                     </tr>
                     <tr class="border-b bg-gray-50 ">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                            Microsoft Surface Pro
+				NA-33
                         </th>
                         <td class="px-6 py-4">
-                            White
+				Peshawar
                         </td>
                         <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 hover:underline">Edit</a>
+                            <a href="#" class="font-medium text-blue-600 hover:underline">Vote</a>
                         </td>
                     </tr>
                 </tbody>

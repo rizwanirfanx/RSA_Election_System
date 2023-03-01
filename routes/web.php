@@ -28,3 +28,6 @@ Route::get('/voter-verification', function () {
 Route::get('/vote', function () {
     return view('voting_page');
 });
+Route::get('/results', function () {
+    return view('election_results_page');
+});

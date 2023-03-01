@@ -14,9 +14,8 @@
         </div>
         <div class="links">
             <a href="/" class="p-2 hover:to-green-100">Home</a>
-            <a class="p-2">How to Cast Vote</a>
-            <a class="p-2">FAQs</a>
-            <a class="p-2">Contact Us</a>
+            <a href="/voter-verification" class="p-2">Vote</a>
+            <a href="/register" class="p-2">Register</a>
         </div>
     </nav>
     <div class="">
