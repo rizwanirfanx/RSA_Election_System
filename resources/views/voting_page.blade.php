@@ -41,7 +41,7 @@
 				Kohat
                         </td>
                         <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Vote</a>
+                            <a href="/candidates" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Vote</a>
                         </td>
                     </tr>
                     <tr class="border-b bg-gray-50 ">
@@ -52,7 +52,7 @@
 				Peshawar
                         </td>
                         <td class="px-6 py-4">
-                            <a href="#" class="font-medium text-blue-600 hover:underline">Vote</a>
+                            <a href="/candidates" class="font-medium text-blue-600 hover:underline">Vote</a>
                         </td>
                     </tr>
                 </tbody>

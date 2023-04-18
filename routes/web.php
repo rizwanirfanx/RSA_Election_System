@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Middleware\Authenticate;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,23 +18,42 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	if (Auth::check()) {
+
+		return view('welcome', [
+			'user' => Auth::user(),
+		]);
+	}
+	return view('welcome');
 });
+Route::post('/login', [AuthController::class, 'authenticate'])->name('login');
 Route::get('/login', function () {
-    return view('login');
+	return view('login');
 });
+
 Route::get('/register', function () {
-    return view('registration_page');
+	return view('registration_page');
 });
+Route::post('/register', [UserController::class, 'store']);
+
+Route::get('/logout', [AuthController::class, 'logout']);
+
 Route::get('/voter-verification', function () {
-    return view('voter_pass_verification');
+	return view('voter_pass_verification');
 });
 Route::get('/vote', function () {
-    return view('voting_page');
+	return view('voting_page');
 });
 Route::get('/results', function () {
-    return view('election_results_page');
+	return view('election_results_page');
 });
 Route::get('/candidates', function () {
-    return view('candidates');
+	return view('candidates');
 });
+Route::get('/about-us', function () {
+	return view('about_us');
+});
+
+Route::get('/profile', function () {
+	return view('profile_page');
+})->middleware(Authenticate::class);
