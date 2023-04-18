@@ -17,6 +17,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware([Authenticate::class])->group(function () {
+
+	Route::get('/voter-verification', function () {
+		return view('voter_pass_verification');
+	});
+	Route::get('/profile', function () {
+		return view('profile_page');
+	});
+});
+
 Route::get('/', function () {
 	if (Auth::check()) {
 
@@ -26,6 +36,7 @@ Route::get('/', function () {
 	}
 	return view('welcome');
 });
+
 Route::post('/login', [AuthController::class, 'authenticate'])->name('login');
 Route::get('/login', function () {
 	return view('login');
@@ -38,12 +49,9 @@ Route::post('/register', [UserController::class, 'store']);
 
 Route::get('/logout', [AuthController::class, 'logout']);
 
-Route::get('/voter-verification', function () {
-	return view('voter_pass_verification');
-});
 Route::get('/vote', function () {
 	return view('voting_page');
-});
+})->middleware(Authenticate::class);
 Route::get('/results', function () {
 	return view('election_results_page');
 });
@@ -53,7 +61,3 @@ Route::get('/candidates', function () {
 Route::get('/about-us', function () {
 	return view('about_us');
 });
-
-Route::get('/profile', function () {
-	return view('profile_page');
-})->middleware(Authenticate::class);

@@ -18,7 +18,7 @@
                     <div class="flex items-center lg:order-2">
                         <a href="/profile"
                             class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none ">
-                            {{Auth::user()->name}}</a>
+                            {{ Auth::user()->name }}</a>
                         <a href="/logout"
                             class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none ">
                             Log Out</a>
