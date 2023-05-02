@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\EnsureUserIsECPAdmin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware([EnsureUserIsECPAdmin::class])->group(function() {
+	Route::get('/ecp_dashboard', function(){
+		return view('about_us');
+	});
+});
 Route::middleware([Authenticate::class])->group(function () {
 
 	Route::get('/voter-verification', function () {

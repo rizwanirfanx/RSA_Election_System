@@ -8,9 +8,13 @@
     <div class="bg-gray-200 w-4/6 mx-auto mt-5 py-40 px-6 rounded flex flex-col  items-center">
         <h1 class="my-3">Welcome to Online Election System for Pakistan</h1>
         <p class="my-3">This Online Voting System is open for all Pakistani who are eligible for voting</p>
+	@auth
+	<p>{{ Auth::user() }}</p>
+	@endauth
         <div class="flex justify-around">
 
             <a href="/register" class="svg_container text-center px-6 py-10 rounded-full mx-3">
+		    
 
 
                 <svg class="fill-green-900 m-auto" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960"
