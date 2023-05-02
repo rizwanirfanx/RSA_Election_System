@@ -25,11 +25,13 @@ Route::middleware([Authenticate::class])->group(function () {
 	Route::get('/profile', function () {
 		return view('profile_page');
 	});
+	Route::get('/vote', function () {
+		return view('voting_page');
+	});
 });
 
 Route::get('/', function () {
 	if (Auth::check()) {
-
 		return view('welcome', [
 			'user' => Auth::user(),
 		]);
@@ -49,9 +51,6 @@ Route::post('/register', [UserController::class, 'store']);
 
 Route::get('/logout', [AuthController::class, 'logout']);
 
-Route::get('/vote', function () {
-	return view('voting_page');
-})->middleware(Authenticate::class);
 Route::get('/results', function () {
 	return view('election_results_page');
 });
