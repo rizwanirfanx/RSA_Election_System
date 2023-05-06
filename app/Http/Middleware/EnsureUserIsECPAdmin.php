@@ -24,9 +24,11 @@ class EnsureUserIsECPAdmin
 			->where('meta_value', '=', 'admin')
 			->where('user_id', '=', Auth::user()->id)
 			->get();
+		// The following conditgion could be problematic, because we are checking the size of collection 
+		// to guess whether the user is logged in as admin or not
 		if (sizeof($is_admin) > 0) {
 			return $next($request);
 		}
-		return redirect('welcome');
+		return abort(403);
 	}
 }

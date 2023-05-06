@@ -18,9 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware([EnsureUserIsECPAdmin::class])->group(function() {
+Route::middleware([Authenticate::class ,EnsureUserIsECPAdmin::class])->group(function() {
 	Route::get('/ecp_dashboard', function(){
-		return view('about_us');
+		return view('admin_panel_home');
 	});
 });
 Route::middleware([Authenticate::class])->group(function () {
