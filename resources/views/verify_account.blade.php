@@ -46,7 +46,7 @@
                 @foreach ($nadra_data as $data)
                     <div>
                         <input id="{{ $data->mother_name }}" type="radio" name="mother_name"
-                            value={{ $data->mother_name }} />
+                            value="{{ $data->mother_name }}" />
                         <label for="{{ $data->mother_name }}">{{ $data->mother_name }}</label>
                     </div>
                 @endforeach

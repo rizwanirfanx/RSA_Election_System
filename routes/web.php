@@ -39,8 +39,13 @@ Route::middleware([Authenticate::class])->group(function () {
 		return view('verify_account', ['nadra_data' => $mergedNadraData]);
 	});
 
+	Route::post('/verify_account', [UserController::class, 'verify_account']);
+
 	Route::get('/voter-verification', function () {
 		return view('voter_pass_verification');
+	});
+	Route::get('/verification_successful' , function(){
+		return view('verification_successful');
 	});
 	Route::get('/profile', function () {
 		return view('profile_page');
