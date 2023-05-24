@@ -30,3 +30,14 @@ If you discover a security vulnerability within RSA, please send an e-mail to Ri
 I  checking the pull command 
 
 
+## Data Needed for Users Table
+
+name
+
+email
+
+password
+
+phone_number
+
+cnic

@@ -39,16 +39,29 @@
                 </ul>
             </div>
         @endif
-        <form method="POST" action="/register" class="flex flex-col w-5/6 ">
+        <form method="POST" action="/verify_account" class="flex flex-col w-5/6 ">
             @csrf
-            @foreach ($nadra_data as $data)
-                <input id="{{ $data->mother_name }}" type="radio" name="mother_name" value={{ $data->mother_name }} />
-                <label for="{{$data->mother_name}}">{{ $data->mother_name }}</label>
-            @endforeach
-            @foreach ($nadra_data as $data)
-                <input id="{{ $data->cnic_expiry_date }}" type="radio" name="mother_name" value={{ $data->cnic_expiry_date }} />
-                <label for="{{$data->cnic_expiry_date}}">{{ $data->cnic_expiry_date }}</label>
-            @endforeach
+	    <label>Select Your Mother Name</label>
+            <div class="grid grid-cols-2">
+                @foreach ($nadra_data as $data)
+                    <div>
+                        <input id="{{ $data->mother_name }}" type="radio" name="mother_name"
+                            value={{ $data->mother_name }} />
+                        <label for="{{ $data->mother_name }}">{{ $data->mother_name }}</label>
+                    </div>
+                @endforeach
+            </div>
+	    <label>Select your CNIC Expiry Date</label>
+            <div class="grid grid-cols-2">
+                @foreach ($nadra_data as $data)
+                    <div class="">
+                        <input id="{{ $data->cnic_expiry_date }}" type="radio" name="cnic_expiry_date"
+                            value={{ $data->cnic_expiry_date }} />
+                        <label for="{{ $data->cnic_expiry_date }}">{{ $data->cnic_expiry_date }}</label>
+                    </div>
+                @endforeach
+            </div>
+	    <input type="submit"/>
         </form>
     </div>
 @endsection
