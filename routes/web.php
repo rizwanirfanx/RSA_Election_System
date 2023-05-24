@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ECPController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\EnsureUserIsECPAdmin;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,12 +20,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware([Authenticate::class ,EnsureUserIsECPAdmin::class])->group(function() {
-	Route::get('/ecp_dashboard', function(){
+Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('admin')->group(function () {
+	Route::get('/dashboard', function () {
 		return view('admin_panel_home');
 	});
+	Route::get('/upload_candidates', function () {
+		return view('ecp.upload_candidates');
+	});
+	Route::post('/upload_candidates', [ECPController::class, 'uploadElectionCandidatesCSV']);
 });
 Route::middleware([Authenticate::class])->group(function () {
+
+	Route::get('verify_account', function () {
+		$randNadraData = DB::table('nadra_cnic')->inRandomOrder()->limit(3)->get()->all();
+		$nadraDataOfCurrentUser = DB::table('nadra_cnic')->where('cnic', '=', Auth::user()->cnic)->get()->all();
+		$mergedNadraData = array_merge($nadraDataOfCurrentUser , $randNadraData);
+		shuffle($mergedNadraData);
+		return view('verify_account', ['nadra_data' => $mergedNadraData]);
+	});
 
 	Route::get('/voter-verification', function () {
 		return view('voter_pass_verification');

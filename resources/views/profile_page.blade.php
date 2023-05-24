@@ -22,7 +22,7 @@
                             <a href="">Change Password</a>
                         </div>
                         <div class="my-2">
-                            <a class="text-red-500 font-semibold" href="">Verification Status: Not Verified</a>
+                            <a class="text-red-500 font-semibold" href="/verify_account">Verification Status: Not Verified</a>
                         </div>
                     </div>
                 </div>

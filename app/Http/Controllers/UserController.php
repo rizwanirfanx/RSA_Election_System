@@ -14,8 +14,8 @@ class UserController extends Controller
 			'name' => 'required',
 			'email' => 'required|email|unique:App\Models\User',
 			'password' => 'required|min:8|max:255',
-			'cnic' => 'unique:App\Models\User|required|size:13',
-			'phone_number' => 'unique:App\Models\User|required',
+			'cnic' => 'required|min:13|max:15|unique:users',
+			'phone_number' => 'required|min:9|max:14|unique:users',
 
 		]);
 
@@ -25,6 +25,8 @@ class UserController extends Controller
 		$user->name = $request->name;
 		$user->email = $request->email;
 		$user->password = $hashedPassword;
+		$user->cnic = $request->cnic;
+		$user->phone_number = $request->phone_number;
 		$user->save();
 		return redirect('/');
 	}
