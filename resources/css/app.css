@@ -1,6 +1,10 @@
+@import "@fortawesome/fontawesome-free/css/all.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 header {
     display: flex;
     align-items: center;

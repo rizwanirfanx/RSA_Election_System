@@ -11,9 +11,8 @@ return new class extends Migration
 	 */
 	public function up(): void
 	{
-
-		Schema::table('na_seats', function (Blueprint $table) {
-			$table->string('constituency_name')->change();
+		Schema::table('party', function (Blueprint $table) {
+			$table->dropColumn('leader_id');
 		});
 	}
 
@@ -22,6 +21,5 @@ return new class extends Migration
 	 */
 	public function down(): void
 	{
-		Schema::dropIfExists('na_seats');
 	}
 };

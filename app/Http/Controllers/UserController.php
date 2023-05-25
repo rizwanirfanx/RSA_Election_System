@@ -48,7 +48,7 @@ class UserController extends Controller
 			return redirect('/verification_successful');
 			
 		} else {
-			ddd($nadraDataOfCurrentUser == $request->mother_name);
+
 		}
 	}
 }

@@ -28,13 +28,27 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 		return view('ecp.upload_candidates');
 	});
 	Route::post('/upload_candidates', [ECPController::class, 'uploadElectionCandidatesCSV']);
+
+	Route::get('/upload_parties', function () {
+		return view('ecp.upload_parties');
+	});
+
+	Route::post('/upload_parties', [ECPController::class, 'uploadPoliticalParties']);
+
+	Route::get('/parties', [ECPController::class, 'displayParties']);
+
+	Route::get('/na_candidates', [ECPController::class, 'displayNACandidatesPage']);
+
+	Route::get('/add_na_candidate', [ECPController::class, 'displayAddCandidatePage']);
+
+	Route::post('/add_na_candidate', [ECPController::class, 'addNACandidate']);
 });
 Route::middleware([Authenticate::class])->group(function () {
 
 	Route::get('verify_account', function () {
 		$randNadraData = DB::table('nadra_cnic')->inRandomOrder()->limit(3)->get()->all();
 		$nadraDataOfCurrentUser = DB::table('nadra_cnic')->where('cnic', '=', Auth::user()->cnic)->get()->all();
-		$mergedNadraData = array_merge($nadraDataOfCurrentUser , $randNadraData);
+		$mergedNadraData = array_merge($nadraDataOfCurrentUser, $randNadraData);
 		shuffle($mergedNadraData);
 		return view('verify_account', ['nadra_data' => $mergedNadraData]);
 	});
@@ -44,11 +58,24 @@ Route::middleware([Authenticate::class])->group(function () {
 	Route::get('/voter-verification', function () {
 		return view('voter_pass_verification');
 	});
-	Route::get('/verification_successful' , function(){
+
+	Route::get('/verification_successful', function () {
 		return view('verification_successful');
 	});
+
+
+
 	Route::get('/profile', function () {
-		return view('profile_page');
+
+		$user = DB::table('users')->where('id',  '=', Auth::user()->getAuthIdentifier())->select()->get();
+
+		$user_verification_status = DB::table('users_meta')->where('user_id', '=', Auth::user()->getAuthIdentifier())->where('meta_key', '=', 'is_verified')->select(['meta_value'])->get();
+		if (count($user_verification_status) == 0) {
+			$user_verification_status = 0;
+		} else {
+			$user_verification_status = $user_verification_status[0]->meta_value;
+		}
+		return view('profile_page', ['user' => $user[0], 'user_verification_status' => $user_verification_status]);
 	});
 	Route::get('/vote', function () {
 		return view('voting_page');

@@ -1,3 +1,4 @@
+
 <html>
 
 <head>
@@ -12,12 +13,10 @@
                 <img alt="logo" src="{{ asset('images/gov_white_logo.png') }}" width="100px">
             </div>
             <div class="my-5"></div>
-            <x-nav-components.nav-button title="Add NA Candidate" link="/admin/add_na_candidate" icon="fa-person" />
-            <x-nav-components.nav-button title="Display NA Candidates" link="/admin/na_candidates" icon="fa-users" />
+            <x-nav-components.nav-button title="Home" link="/" icon="fa-home" />
+            <x-nav-components.nav-button title="My Info" link="/profile" icon="fa-users" />
+            <x-nav-components.nav-button title="Voter Pass" link="/profile" icon="fa-users" />
 
-            <x-nav-components.nav-button title="Display Parties" link="/admin/parties" icon="fa-landmark" />
-            <x-nav-components.nav-button title="Add NADRA Verification Details" link="/admin/parties" icon="fa-landmark" />
-            <x-nav-components.nav-button title="Settings" link="/admin/settings" icon="fa-gear" />
         </div>
         <div class="bg-gray-300 col-span-8 ">
             <nav class="bg-gray-100 p-4">
