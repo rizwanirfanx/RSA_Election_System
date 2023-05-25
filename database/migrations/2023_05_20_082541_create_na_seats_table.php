@@ -13,7 +13,7 @@ return new class extends Migration
 	{
 
 		Schema::table('na_seats', function (Blueprint $table) {
-			$table->string('constituency_name');
+			$table->string('constituency_name')->change();
 		});
 	}
 
