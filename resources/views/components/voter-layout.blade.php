@@ -16,6 +16,7 @@
             <x-nav-components.nav-button title="Home" link="/" icon="fa-home" />
             <x-nav-components.nav-button title="My Info" link="/profile" icon="fa-users" />
             <x-nav-components.nav-button title="Voter Pass" link="/profile" icon="fa-users" />
+            <x-nav-components.nav-button title="Vote" link="/vote" icon="fa-users" />
 
         </div>
         <div class="bg-gray-300 col-span-8 ">
@@ -35,5 +36,6 @@
         </div>
     </section>
 </body>
+{{ $scripts ?? '' }} 
 
 </html>

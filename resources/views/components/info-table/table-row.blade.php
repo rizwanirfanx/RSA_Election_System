@@ -3,9 +3,12 @@
                     {{ $key }}
                 </th>
                 <td class="px-6 py-4">
-                    @if ($link != '#')
-                        <a href="{{$link}}"
-                            class="font-medium text-red-600 underline hover:underline">{{$value}}</a>
+                    @if ($link != '')
+                        <form id="{{$id ?? ""}}" action="{{$link}}" method="POST">
+                            @csrf
+                            <input class="text-red-600 underline font-bold hover:cursor-pointer" type="submit"
+                                value="{{ $value }}" />
+                        </form>
                     @else
                         {{ $value }}
                     @endif

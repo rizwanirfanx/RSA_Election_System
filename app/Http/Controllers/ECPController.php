@@ -82,7 +82,7 @@ class ECPController extends Controller
 
 	public function displayNACandidatesPage(Request $request)
 	{
-		$candidates = DB::table('na_candidates')->join('party', 'na_candidates.party_symbol_number', '=', 'p_symbol_number' )->select('na_candidates.*' , 'party.p_name')->get();
+		$candidates = DB::table('na_candidates')->join('party', 'na_candidates.party_symbol_number', '=', 'p_symbol_number')->select('na_candidates.*', 'party.p_name')->get();
 		return view('ecp.na_candidates', [
 			'candidates' => $candidates
 		]);
@@ -110,6 +110,20 @@ class ECPController extends Controller
 		$isSavedSuccessfully = $new_na_candidate->save();
 		if ($isSavedSuccessfully) {
 			return view('verification_successful');
+		}
+	}
+	public function displayResults()
+	{
+		$voteCounts = DB::table('na_votes')
+			->select('candidate_id', DB::raw('COUNT(*) as vote_count'))
+			->groupBy('candidate_id')
+			->get();
+
+		ddd($voteCounts);
+		foreach ($voteCounts as $vote) {
+			$candidateId = $vote->candidate_id;
+			$count = $vote->vote_count;
+			
 		}
 	}
 }

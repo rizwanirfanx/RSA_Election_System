@@ -11,7 +11,7 @@ class TableRow extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public string $key, public string $value, public string $link='#')
+    public function __construct(public string $key, public string $value, public string $link='', public string $id = '')
     {
         //
     }

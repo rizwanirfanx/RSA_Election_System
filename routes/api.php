@@ -17,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 	return $request->user();
 });
+
+Route::middleware('auth:api')->get('/random-string', function (Request $request) {
+    // Generate a random string
+    $randomString = "YASGI";
+
+    return response()->json([
+        'random_string' => $randomString
+    ]);
+});

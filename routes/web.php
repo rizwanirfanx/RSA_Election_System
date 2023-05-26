@@ -3,10 +3,14 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ECPController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VoterController;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\EnsureUserIsECPAdmin;
+use App\Http\Middleware\EnsureVoterPassVerified;
+use App\Models\User_Meta;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,6 +46,8 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 	Route::get('/add_na_candidate', [ECPController::class, 'displayAddCandidatePage']);
 
 	Route::post('/add_na_candidate', [ECPController::class, 'addNACandidate']);
+
+	Route::get('/display_results', [ECPController::class, 'displayResults']);
 });
 Route::middleware([Authenticate::class])->group(function () {
 
@@ -70,17 +76,39 @@ Route::middleware([Authenticate::class])->group(function () {
 		$user = DB::table('users')->where('id',  '=', Auth::user()->getAuthIdentifier())->select()->get();
 
 		$user_verification_status = DB::table('users_meta')->where('user_id', '=', Auth::user()->getAuthIdentifier())->where('meta_key', '=', 'is_verified')->select(['meta_value'])->get();
+
+		$user_voter_pass = DB::table('users_meta')->where('user_id', '=', Auth::user()->getAuthIdentifier())->where('meta_key', '=', 'voting_pass')->select(['meta_value'])->get();
+		if (count($user_voter_pass) == 0) {
+			$user_voter_pass = null;
+		} else {
+			$user_voter_pass = $user_voter_pass[0]->meta_value;
+		}
 		if (count($user_verification_status) == 0) {
 			$user_verification_status = 0;
 		} else {
 			$user_verification_status = $user_verification_status[0]->meta_value;
 		}
-		return view('profile_page', ['user' => $user[0], 'user_verification_status' => $user_verification_status]);
+		return view('profile_page', ['user' => $user[0], 'user_verification_status' => $user_verification_status, 'voter_pass' => $user_voter_pass]);
 	});
-	Route::get('/vote', function () {
-		return view('voting_page');
+
+
+	Route::post('/generate_voting_pass', function () {
+		$voting_pass =  Hash::make(Auth::user()->email_address);
+		$new_user_meta = new User_Meta;
+		$new_user_meta->meta_key = 'voting_pass';
+		$new_user_meta->meta_value = $voting_pass;
+		$new_user_meta->user_id = Auth::user()->getAuthIdentifier();
+		if ($new_user_meta->save()) {
+			return redirect('/profile');
+		}
+		return response()->json(['message' => 'Failed to save the model'], 500);
 	});
 });
+
+Route::middleware([Authenticate::class, EnsureVoterPassVerified::class])->group(function(){
+	Route::get('/vote', [VoterController::class , 'displayVotePage']);
+});
+
 
 Route::get('/', function () {
 	if (Auth::check()) {
