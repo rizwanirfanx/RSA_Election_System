@@ -13,7 +13,7 @@ class UserController extends Controller
 {
 	public function store(Request $request)
 	{
-		$validated = $request->validate([
+		$credentials = $request->validate([
 			'name' => 'required',
 			'email' => 'required|email|unique:App\Models\User',
 			'password' => 'required|min:8|max:255',
@@ -31,24 +31,47 @@ class UserController extends Controller
 		$user->cnic = $request->cnic;
 		$user->phone_number = $request->phone_number;
 		$user->save();
-		return redirect('/');
+		if (Auth::attempt($credentials)) {
+			$request->session()->regenerate();
+
+			return redirect()->intended('/profile');
+		}
+
+		return redirect('/login');
 	}
 
 	public function verify_account(Request $request)
 	{
 
 		$nadraDataOfCurrentUser = DB::table('nadra_cnic')->where('cnic', '=', Auth::user()->cnic)->get()->all();
-		
-		if ($nadraDataOfCurrentUser[0]->mother_name == $request->mother_name) {
-			$user_meta = new User_Meta;
+
+		$user_meta = new User_Meta;
+		$user_meta->user_id = Auth::user()->getAuthIdentifier();
+		if (
+			$nadraDataOfCurrentUser[0]->mother_name == $request->mother_name
+			&&
+			$nadraDataOfCurrentUser[0]->cnic_expiry_date == $request->cnic_expiry_date
+
+		) {
 			$user_meta->meta_key = 'is_verified';
 			$user_meta->meta_value = true;
-			$user_meta->user_id = Auth::user()->getAuthIdentifier();
 			$user_meta->save();
 			return redirect('/verification_successful');
-			
 		} else {
-
+			$user_meta->meta_key = 'account_blocked';
+			$user_meta->meta_value = true;
+			$user_meta->save();
+			return response('Wrong Answer', '403');
 		}
+	}
+	public function displayVerifyAccountPage(Request $request)
+	{
+
+		$nadraDataOfCurrentUser = DB::table('nadra_cnic')->where('cnic', '=', Auth::user()->cnic)->get()->all();
+		$curr_user_mother_name = ($nadraDataOfCurrentUser[0]->mother_name);
+		$randNadraData = DB::table('nadra_cnic')->where('mother_name', '!=', $curr_user_mother_name)->inRandomOrder()->limit(3)->get()->all();
+		$mergedNadraData = array_merge($nadraDataOfCurrentUser, $randNadraData);
+		shuffle($mergedNadraData);
+		return view('verify_account', ['nadra_data' => $mergedNadraData]);
 	}
 }

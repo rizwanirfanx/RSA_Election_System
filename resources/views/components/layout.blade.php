@@ -7,7 +7,7 @@
 
 <body>
     <section class="grid grid-cols-12">
-        <div class="sidebar col-span-3 dark:bg-slate-900 text-white px-3 py-2 min-h-screen">
+        <div class="sidebar col-span-3 bg-green-800 text-white px-3 py-2 min-h-screen">
             <div class="flex items-center">
                 <a href="/">
 

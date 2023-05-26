@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>{{ $title ?? 'Todo Manager' }}</title>
+    <title>{{ $title ?? 'RSA' }}</title>
     @vite('resources/css/app.css')
 </head>
 
@@ -15,15 +15,15 @@
             <div class="my-5"></div>
             <x-nav-components.nav-button title="Home" link="/" icon="fa-home" />
             <x-nav-components.nav-button title="My Info" link="/profile" icon="fa-users" />
-            <x-nav-components.nav-button title="Voter Pass" link="/profile" icon="fa-users" />
-            <x-nav-components.nav-button title="Vote" link="/vote" icon="fa-users" />
+            <x-nav-components.nav-button title="Vote" link="/vote" icon="fa-check-to-slot" />
+            <x-nav-components.nav-button title="Logout" link="/logout" icon="fa-arrow-right-from-bracket" />
 
         </div>
         <div class="bg-gray-300 col-span-8 ">
             <nav class="bg-gray-100 p-4">
                 <div class="flex">
                     <div class="left">
-                        <h3 class="font-semibold text-2xl fami">Welcome Admin 🎊</h3>
+                        <h3 class="font-semibold text-2xl fami">Welcome {{Auth::user()->name}} 🎊</h3>
                         <p class="text-gray-800 font-light text-sm">Here is What is happening in your Elections!</p>
                     </div>
                     <div class="right">

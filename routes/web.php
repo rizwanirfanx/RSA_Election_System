@@ -7,6 +7,7 @@ use App\Http\Controllers\VoterController;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\EnsureUserIsECPAdmin;
 use App\Http\Middleware\EnsureVoterPassVerified;
+use App\Models\User;
 use App\Models\User_Meta;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -51,13 +52,7 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 });
 Route::middleware([Authenticate::class])->group(function () {
 
-	Route::get('verify_account', function () {
-		$randNadraData = DB::table('nadra_cnic')->inRandomOrder()->limit(3)->get()->all();
-		$nadraDataOfCurrentUser = DB::table('nadra_cnic')->where('cnic', '=', Auth::user()->cnic)->get()->all();
-		$mergedNadraData = array_merge($nadraDataOfCurrentUser, $randNadraData);
-		shuffle($mergedNadraData);
-		return view('verify_account', ['nadra_data' => $mergedNadraData]);
-	});
+	Route::get('verify_account', [UserController::class, 'displayVerifyAccountPage']);
 
 	Route::post('/verify_account', [UserController::class, 'verify_account']);
 
@@ -73,22 +68,22 @@ Route::middleware([Authenticate::class])->group(function () {
 
 	Route::get('/profile', function () {
 
-		$user = DB::table('users')->where('id',  '=', Auth::user()->getAuthIdentifier())->select()->get();
+		$current_user_id = Auth::user()->getAuthIdentifier();
 
-		$user_verification_status = DB::table('users_meta')->where('user_id', '=', Auth::user()->getAuthIdentifier())->where('meta_key', '=', 'is_verified')->select(['meta_value'])->get();
+		$user = User::find($current_user_id);
 
-		$user_voter_pass = DB::table('users_meta')->where('user_id', '=', Auth::user()->getAuthIdentifier())->where('meta_key', '=', 'voting_pass')->select(['meta_value'])->get();
-		if (count($user_voter_pass) == 0) {
-			$user_voter_pass = null;
-		} else {
-			$user_voter_pass = $user_voter_pass[0]->meta_value;
-		}
-		if (count($user_verification_status) == 0) {
-			$user_verification_status = 0;
-		} else {
-			$user_verification_status = $user_verification_status[0]->meta_value;
-		}
-		return view('profile_page', ['user' => $user[0], 'user_verification_status' => $user_verification_status, 'voter_pass' => $user_voter_pass]);
+		$user_voting_pass = User_Meta::where('user_id' , $current_user_id)->where('meta_key', 'voting_pass')->first();
+
+		$user_verification_status = User_Meta::where('user_id', $current_user_id)->where('meta_key', 'is_verified')->first();
+
+		return view(
+			'profile_page',
+			[
+				'user' => $user,
+				'user_verification_status' => $user_verification_status->meta_value,
+				'voter_pass' => $user_voting_pass->meta_value
+			]
+		);
 	});
 
 
@@ -105,8 +100,8 @@ Route::middleware([Authenticate::class])->group(function () {
 	});
 });
 
-Route::middleware([Authenticate::class, EnsureVoterPassVerified::class])->group(function(){
-	Route::get('/vote', [VoterController::class , 'displayVotePage']);
+Route::middleware([Authenticate::class, EnsureVoterPassVerified::class])->group(function () {
+	Route::get('/vote', [VoterController::class, 'displayVotePage']);
 });
 
 
