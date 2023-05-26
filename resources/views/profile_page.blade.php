@@ -16,13 +16,14 @@
                 <x-info-table.table-row key="Email" :value="$user->email" />
                 <x-info-table.table-row key="CNIC" :value="$user->cnic" />
                 <x-info-table.table-row key="Phone Number" :value="$user->phone_number" />
-                @if ($user_verification_status == 1)
+                @if ($user_verification_status != null && $user_verification_status->meta_value == 1)
                     <x-info-table.table-row key="Account Verification Status" value="Verified" />
                 @else
-                    <x-info-table.table-row key="Account Verification Status" value="Not Verified" link="/verify_account" />
+                    <x-info-table.table-row key="Account Verification Status" value="Not Verified"
+                        link="/verify_account" />
                 @endif
                 @if ($voter_pass == null)
-                    <x-info-table.table-row key="Voting Pass" value="Generate Voting Pass" link="/generate_voting_pass" id="generate_voting_pass_btn" form_method="POST"/>
+                    <x-info-table.table-row key="Voting Pass" value="Generate Voting Pass" link="/generate_voting_pass" id="generate_voting_pass_btn" form_method="POST" />
                 @else
                     <x-info-table.table-row key="Voting Pass" :value="$voter_pass" />
                 @endif
@@ -31,7 +32,7 @@
         </table>
     </div>
     <x-slot:scripts>
-    	@vite('resources/js/profile_page.js')
+        @vite('resources/js/profile_page.js')
     </x-slot:scripts>
 
 </x-voter-layout>

@@ -72,7 +72,7 @@ Route::middleware([Authenticate::class])->group(function () {
 
 		$user = User::find($current_user_id);
 
-		$user_voting_pass = User_Meta::where('user_id' , $current_user_id)->where('meta_key', 'voting_pass')->first();
+		$user_voting_pass = User_Meta::where('user_id', $current_user_id)->where('meta_key', 'voting_pass')->first();
 
 		$user_verification_status = User_Meta::where('user_id', $current_user_id)->where('meta_key', 'is_verified')->first();
 
@@ -80,8 +80,8 @@ Route::middleware([Authenticate::class])->group(function () {
 			'profile_page',
 			[
 				'user' => $user,
-				'user_verification_status' => $user_verification_status->meta_value,
-				'voter_pass' => $user_voting_pass->meta_value
+				'user_verification_status' => $user_verification_status,
+				'voter_pass' => $user_voting_pass
 			]
 		);
 	});
