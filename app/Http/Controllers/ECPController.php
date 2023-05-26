@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\NA_Candidates;
 use App\Models\NaSeat;
+use App\Models\User_Meta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
@@ -123,7 +125,34 @@ class ECPController extends Controller
 		foreach ($voteCounts as $vote) {
 			$candidateId = $vote->candidate_id;
 			$count = $vote->vote_count;
-			
 		}
+	}
+
+	function displayLoginPage()
+	{
+		
+		return view('ecp.login');
+	}
+
+	function authenticateECPAdmin(Request $request)
+	{
+
+		$credentials = $request->validate([
+			'email' => ['required', 'email'],
+			'password' => ['required', 'min:8'],
+		]);
+
+
+		if (Auth::attempt($credentials)) {
+			$current_user_id = Auth::user()->getAuthIdentifier();
+			$role = User_Meta::where('user_id', $current_user_id)->where('meta_key', 'user_role')->first();
+			if ($role != null && $role->meta_value == 'admin') {
+				$request->session()->regenerate();
+				return redirect()->intended('/admin/dashboard');
+			}
+		}
+		return back()->withErrors([
+			'email' => 'The provided credentials do not match our records.',
+		])->onlyInput('email');
 	}
 }

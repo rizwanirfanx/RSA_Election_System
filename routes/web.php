@@ -114,6 +114,10 @@ Route::get('/', function () {
 	return view('welcome');
 });
 
+Route::get('/admin', [ECPController::class, 'displayLoginPage']);
+Route::post('/admin/login', [ECPController::class, 'authenticateECPAdmin']);
+
+
 Route::post('/login', [AuthController::class, 'authenticate'])->name('login');
 Route::get('/login', function () {
 	return view('login');
