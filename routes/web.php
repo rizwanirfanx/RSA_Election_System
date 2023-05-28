@@ -72,7 +72,8 @@ Route::middleware([Authenticate::class])->group(function () {
 
 		$user = User::find($current_user_id);
 
-		$user_voting_pass = User_Meta::where('user_id', $current_user_id)->where('meta_key', 'voting_pass')->first();
+		$user_voting_pass = User_Meta::where('user_id', $current_user_id)->where('meta_key', 'voting_pass')->first()->meta_value;
+
 
 		$user_verification_status = User_Meta::where('user_id', $current_user_id)->where('meta_key', 'is_verified')->first();
 

@@ -44,4 +44,8 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function meta_data(){
+	    return $this->hasMany(User_Meta::class, 'user_id');
+    }
 }
