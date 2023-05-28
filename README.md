@@ -35,20 +35,5 @@ If you discover a security vulnerability within RSA, please send an e-mail to Ri
 I  checking the pull command 
 
 
-## Data Needed for Users Table
-
-name
-
-email
-
-password
-
-phone_number
-
-cnic
-=======
 If you discover a security vulnerability within RSA, please send an e-mail to Rizwan Irfan or M.Saad via [rizwanirfanx@gmail.com](mailto:rizwanirfanx@gmail.com) , [saadwisdom452@gmail.com] (mailto:saadwisdom452@gmail.com). All security vulnerabilities will be promptly addressed.
-My first Commit
-rizwan why you hid  the data_base files 
-uplaod this file on github and leme check the databases
 >>>>>>> 2a1d0d618b801bf22e5ea3acb671cfbbdb136124
