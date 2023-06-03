@@ -6,11 +6,12 @@
         <div class="text-center">
             <p>Please Enter your personal Voter Pass that was sent to your registered Email Address</p>
         </div>
-        <form action="/vote" method="GET" class="flex flex-col w-3/4 my-8">
+        <form action="/verify_voting_pass" method="POST" class="flex flex-col w-3/4 my-8">
+            @csrf
             <label for="cnic">CNIC</label>
-            <input id="cnic" type="text" placeholder="CNIC" class="px-3 py-2 my-3">
+            <input name="cnic" id="cnic" type="text" placeholder="CNIC" class="px-3 py-2 my-3">
             <label for="voter_pass">Voter Pass</label>
-            <input id="voter_pass" type="text" placeholder="Voter Pass" class="px-3 py-2 my-3">
+            <input id="voter_pass" name="voter_pass" type="text" placeholder="Voter Pass" class="px-3 py-2 my-3">
             <button type="submit" class="my-3 bg-green-900 hover:bg-green-600 text-white px-3 py-2 rounded ">Verify &
                 Continue</button>
 

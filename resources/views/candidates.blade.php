@@ -20,26 +20,28 @@
                     View all
                 </a>
             </div>
-            <div class="flow-root">
-                <ul role="list" class="divide-y divide-gray-200 ">
-                    <li class="py-3 sm:py-4">
-                        <div class="flex items-center space-x-4">
-                            <div class="flex-1 min-w-0 ml-4 ">
-                                <p class="text-sm font-medium text-gray-900 truncate ">
-                                    Abbassi
-                                </p>
-                                <p class="text-sm text-gray-500 truncate ">
-                                    Pakistan-Tehreek-Insaaf
-                                </p>
-                            </div>
+            @foreach ($candidates as $candidate)
+                <div class="flow-root">
+                    <ul role="list" class="divide-y divide-gray-200 ">
+                        <li class="py-3 sm:py-4">
+                            <div class="flex items-center space-x-4">
+                                <div class="flex-1 min-w-0 ml-4 ">
+                                    <p class="text-sm font-medium text-gray-900 truncate ">
+                                        {{ $candidate->name }}
+                                    </p>
+                                    <p class="text-sm text-gray-500 truncate ">
+                                        {{ $candidate->party_symbol_number }}
+                                    </p>
+                                </div>
 
-                            <a href="#" class="text-sm font-medium text-blue-600 hover:underline ">
-                                Cast Vote
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+                                <a href="#" class="text-sm font-medium text-blue-600 hover:underline ">
+                                    Cast Vote
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            @endforeach
         </div>
     </div>
 

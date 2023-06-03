@@ -4,7 +4,7 @@
                 </th>
                 <td class="px-6 py-4">
                     @if ($link != '')
-                        <form id="{{$id ?? ""}}" action="{{$link}}" method="{{$form_method}}">
+                        <form id="{{$id ?? ""}}" action="{{$link}}" method="POST">
                             @csrf
                             <input class="text-red-600 underline font-bold hover:cursor-pointer" type="submit"
                                 value="{{ $value }}" />

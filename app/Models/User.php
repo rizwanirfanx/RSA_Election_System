@@ -48,4 +48,7 @@ class User extends Authenticatable
     public function meta_data(){
 	    return $this->hasMany(User_Meta::class, 'user_id');
     }
+    public function nadra_data(){
+	    return $this->hasOne(NadraDB::class, 'cnic', 'cnic');
+    }
 }

@@ -44,7 +44,7 @@
             <label for="name">Full Name</label>
             <input name="name" value="{{ old('name') }}" id="name" type="text" placeholder="Full Name"
                 class="px-3 py-2 my-3">
-            <label for="cnic">CNIC</label>
+            <label for="cnic">CNIC With Dashes</label>
             <input value="{{ old('cnic') }}" name="cnic" id="cnic" type="text" placeholder="CNIC"
                 class="px-3 py-2 my-3">
             <label for="email">Email</label>
