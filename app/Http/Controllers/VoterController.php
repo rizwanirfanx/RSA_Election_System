@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NAVote;
 use App\Models\User;
 use App\Models\User_Meta;
 use Illuminate\Http\Request;
@@ -54,5 +55,13 @@ class VoterController extends Controller
 
 	public function castNAVote(Request $request)
 	{
+
+		$request_body = $request->all();
+		NAVote::create([
+			'voter_id' => Auth::user()->getAuthIdentifier(),
+			'candidate_id' => $request_body["candidate_id"],
+			'na_constituency_number' => $request_body["candidate_constituency"],
+		]);
+		
 	}
 }

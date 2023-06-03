@@ -34,9 +34,14 @@
                                     </p>
                                 </div>
 
-                                <a href="#" class="text-sm font-medium text-blue-600 hover:underline ">
-                                    Cast Vote
-                                </a>
+                                <form method="POST" action="/cast_na_vote">
+                                    @csrf
+				    
+                                    <input name="candidate_id" type="hidden" value="{{ $candidate->id }}" />
+                                    <input name="candidate_constituency" type="hidden" value="{{ $candidate->constituency_number }}" />
+                                    <input type="submit" class="text-sm font-medium text-blue-600 hover:underline "
+                                        value="Cast Vote" />
+                                </form>
                             </div>
                         </li>
                     </ul>

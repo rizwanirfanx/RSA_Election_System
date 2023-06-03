@@ -23,6 +23,7 @@
                 icon="fa-landmark" />
             <x-nav-components.nav-button title="Settings" link="/admin/settings" icon="fa-gear" />
             <x-nav-components.nav-button title="Display Results" link="/admin/display_results" icon="fa-chart-simple" />
+            <x-nav-components.nav-button title="Logout" link="/logout" icon="fa-right-from-bracket" />
         </div>
         <div class="bg-gray-300 col-span-9">
             <nav class="bg-gray-100 p-4">

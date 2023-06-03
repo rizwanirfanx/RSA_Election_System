@@ -38,7 +38,7 @@ Route::middleware([Authenticate::class, isRegisteredByNADRA::class])->group(func
 		return view('voter_pass_verification');
 	});
 
-	Route::post('/verify_voting_pass' , [VoterController::class, 'verifyVotingPass']);
+	Route::post('/verify_voting_pass', [VoterController::class, 'verifyVotingPass']);
 
 	Route::get('/verification_successful', function () {
 		return view('verification_successful');
@@ -54,7 +54,8 @@ Route::middleware([Authenticate::class, isRegisteredByNADRA::class])->group(func
 		}
 		return response()->json(['message' => 'Failed to save the model'], 500);
 	});
-	Route::get('/candidates', [VotingPageController::class, 'displayVotingPage'] ); });
+	Route::get('/candidates', [VotingPageController::class, 'displayVotingPage']);
+});
 
 Route::middleware([Authenticate::class])->group(function () {
 
@@ -91,7 +92,9 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 
 Route::middleware([Authenticate::class, isRegisteredByNADRA::class,  EnsureVoterPassVerified::class])->group(function () {
 	Route::get('/vote', [VoterController::class, 'displayVotePage']);
+	Route::post('/cast_na_vote', [VoterController::class, 'castNAVote']);
 });
+
 
 
 Route::get('/', function () {
@@ -130,4 +133,3 @@ Route::get('/nadra-error', function () {
 Route::get('/sms_simulator', function () {
 	return view('sms_simulator');
 });
-

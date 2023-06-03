@@ -23,8 +23,14 @@ class isRegisteredByNADRA
 		}
 
 
-		return redirect(
-			'/nadra-error',
+		return response(
+			view(
+				'error_page',
+				[
+					'error_title' => 'NADRA Record Not Found',
+					'error_message' => 'You have not been registered by NADRA for online voting yet, kindly check back later',
+				]
+			)
 		);
 	}
 }
