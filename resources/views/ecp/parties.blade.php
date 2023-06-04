@@ -1,8 +1,8 @@
 <x-layout>
 
     <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table class="w-full text-sm text-left text-gray-500 ">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         Party name
@@ -17,15 +17,15 @@
             </thead>
             <tbody>
                 @foreach ($parties as $party)
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <tr class="bg-white border-b ">
                         <td class="px-6 py-4">
-                            {{$party->p_name}}
+                            {{ $party->p_name }}
                         </td>
                         <td class="px-6 py-4">
-				{{$party->p_sign}}
+                            {{ $party->p_sign }}
                         </td>
                         <td class="px-6 py-4">
-				{{$party->p_symbol_number}}
+                            {{ $party->p_symbol_number }}
                         </td>
                     </tr>
                 @endforeach

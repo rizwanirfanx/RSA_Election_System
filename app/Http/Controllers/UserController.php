@@ -44,7 +44,7 @@ class UserController extends Controller
 	{
 
 		$nadraDataOfCurrentUser = DB::table('nadra_cnic')->where('cnic', '=', Auth::user()->cnic)->get()->all();
-	
+
 		$user_meta = new User_Meta;
 		$user_meta->user_id = Auth::user()->getAuthIdentifier();
 		if (
@@ -66,20 +66,16 @@ class UserController extends Controller
 	public function displayVerifyAccountPage(Request $request)
 	{
 
+
 		$nadraDataOfCurrentUser = DB::table('nadra_cnic')->where('cnic', '=', Auth::user()->cnic)->get()->all();
-		if(count($nadraDataOfCurrentUser) == 0) {
-			return view('error_page', [
-				'error_message' => 'You are Not Registered by NADRA for Online Voting, Please Wait Until they Add you for Online Voting',
-				'error_title' => '404',
-			]);
-		}
 		$curr_user_mother_name = ($nadraDataOfCurrentUser[0]->mother_name);
 		$randNadraData = DB::table('nadra_cnic')->where('mother_name', '!=', $curr_user_mother_name)->inRandomOrder()->limit(3)->get()->all();
 		$mergedNadraData = array_merge($nadraDataOfCurrentUser, $randNadraData);
 		shuffle($mergedNadraData);
 		return view('verify_account', ['nadra_data' => $mergedNadraData]);
 	}
-	public function displayProfilePage(Request $request){
+	public function displayProfilePage(Request $request)
+	{
 
 		$user_voting_pass = Auth::user()->meta_data()->where('meta_key', 'voting_pass')->first()?->meta_value;
 

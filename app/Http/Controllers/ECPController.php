@@ -121,11 +121,11 @@ class ECPController extends Controller
 			->groupBy('candidate_id')
 			->get();
 
-		ddd($voteCounts);
 		foreach ($voteCounts as $vote) {
 			$candidateId = $vote->candidate_id;
 			$count = $vote->vote_count;
 		}
+		return view('ecp.display_results');
 	}
 
 	function displayLoginPage()
