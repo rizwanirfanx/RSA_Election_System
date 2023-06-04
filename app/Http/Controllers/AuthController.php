@@ -23,7 +23,7 @@ class AuthController extends Controller
 
 			$user_role = Auth::user()->meta_data
 				->where('meta_key', 'user_role')
-				->first()->meta_value;
+				->first()?->meta_value;
 			if ($user_role == 'admin') {
 				return redirect()->intended('/admin/dashboard');
 			}
