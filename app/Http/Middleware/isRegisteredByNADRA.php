@@ -22,7 +22,6 @@ class isRegisteredByNADRA
 			return	$next($request);
 		}
 
-
 		return response(
 			view(
 				'error_page',

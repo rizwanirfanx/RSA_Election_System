@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,10 +20,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:api')->get('/random-string', function (Request $request) {
-    // Generate a random string
-    $randomString = "YASGI";
+	// Generate a random string
+	$randomString = "YASGI";
 
-    return response()->json([
-        'random_string' => $randomString
-    ]);
+	return response()->json([
+		'random_string' => $randomString
+	]);
+});
+
+
+Route::get('/p', function () {
+	return response()->json(['love' => 'no']);
 });

@@ -60,7 +60,10 @@ class UserController extends Controller
 			$user_meta->meta_key = 'account_blocked';
 			$user_meta->meta_value = true;
 			$user_meta->save();
-			return view('error_page');
+			return view('error_page', [
+				'error_message' => 'Your Account has been Blocked',
+				'error_title' => 'Account Blocked',
+			]);
 		}
 	}
 	public function displayVerifyAccountPage(Request $request)

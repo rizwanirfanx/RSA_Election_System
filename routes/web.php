@@ -30,7 +30,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 Route::middleware([Authenticate::class, isRegisteredByNADRA::class])->group(function () {
 
-	Route::get('verify_account', [UserController::class, 'displayVerifyAccountPage']);
+	Route::get('/verify_account', [UserController::class, 'displayVerifyAccountPage']);
 
 	Route::post('/verify_account', [UserController::class, 'verify_account']);
 
@@ -43,7 +43,7 @@ Route::middleware([Authenticate::class, isRegisteredByNADRA::class])->group(func
 	Route::get('/verification_successful', function () {
 		return view('verification_successful');
 	});
-	Route::post('/generate_voting_pass', function () {
+	Route::get('/generate_voting_pass', function () {
 		$voting_pass =  Hash::make(Auth::user()->email_address);
 		$new_user_meta = new User_Meta;
 		$new_user_meta->meta_key = 'voting_pass';
@@ -71,6 +71,10 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 	Route::get('/upload_candidates', function () {
 		return view('ecp.upload_candidates');
 	});
+	Route::get('/settings', function () {
+		return view('ecp.settings');
+	});
+	Route::post('/set_election_timing', [ECPController::class, 'setElectionTime']);
 	Route::post('/upload_candidates', [ECPController::class, 'uploadElectionCandidatesCSV']);
 
 	Route::get('/upload_parties', function () {

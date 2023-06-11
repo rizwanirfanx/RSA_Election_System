@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\NA_Candidates;
 use App\Models\NaSeat;
 use App\Models\User_Meta;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
@@ -12,6 +13,17 @@ use Illuminate\Support\Facades\DB;
 
 class ECPController extends Controller
 {
+	public function setElectionTime(Request $request)
+	{
+		$starting_time = DateTime::createFromFormat("Y-m-d\TH:i", $request->election_starting_time);
+		$ending_time = DateTime::createFromFormat("Y-m-d\TH:i", $request->election_ending_time);
+		$diff = $starting_time->diff($ending_time);
+		if ($diff->invert === 0) {
+			ddd("The Ending Time is in the Future");
+		}
+		ddd("The Ending TIME is BEFORE STARTING TIME");
+	}
+
 	//
 	public function uploadElectionCandidatesCSV(Request $request)
 	{
@@ -121,16 +133,37 @@ class ECPController extends Controller
 			->groupBy('candidate_id')
 			->get();
 
-		foreach ($voteCounts as $vote) {
-			$candidateId = $vote->candidate_id;
-			$count = $vote->vote_count;
+		$subquery = DB::table(function ($query) {
+			$query->select(
+				'na_constituency_number',
+				'candidate_id',
+				DB::raw('COUNT(*) AS occurrences'),
+				DB::raw('ROW_NUMBER() OVER (PARTITION BY na_constituency_number ORDER BY COUNT(*) DESC) AS rn')
+			)
+				->from('na_votes')
+				->groupBy('na_constituency_number', 'candidate_id');
+		}, 'subquery');
+
+		$results = DB::table($subquery)
+			->where('rn', 1)
+			->select('na_constituency_number', 'candidate_id')
+			->get();
+
+		foreach ($results as $result) {
+			$candidate_info = NA_Candidates::find($result->candidate_id);
+			$result->winner_name = $candidate_info->name;
+			$result->party_symbol_number = $candidate_info->party_symbol_number;
 		}
-		return view('ecp.display_results');
+
+
+		return view('ecp.display_results', [
+			'results' => $results,
+		]);
 	}
 
 	function displayLoginPage()
 	{
-		
+
 		return view('ecp.login');
 	}
 

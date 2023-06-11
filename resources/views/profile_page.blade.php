@@ -23,7 +23,8 @@
                         link="/verify_account" />
                 @endif
                 @if ($voter_pass == null)
-                    <x-info-table.table-row key="Voting Pass" value="Generate Voting Pass" link="/generate_voting_pass" id="generate_voting_pass_btn" form_method="POST" />
+                    <x-info-table.table-row key="Voting Pass" value="Generate Voting Pass" link="/generate_voting_pass"
+                        id="generate_voting_pass_btn" form_method="POST" />
                 @else
                     <x-info-table.table-row key="Voting Pass" :value="$voter_pass" />
                 @endif
