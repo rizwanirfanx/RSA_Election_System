@@ -56,12 +56,16 @@ class VoterController extends Controller
 	public function castNAVote(Request $request)
 	{
 
+		$userVoted = NAVote::where('voter_id', Auth::user()->id)->first();
+		if ($userVoted != null) {
+			return view('error_page',  ['error_title' => 'Already Casted NA Vote', 'error_message' => 'You have already casted your vote']);
+		}
+
 		$request_body = $request->all();
 		NAVote::create([
 			'voter_id' => Auth::user()->getAuthIdentifier(),
 			'candidate_id' => $request_body["candidate_id"],
 			'na_constituency_number' => $request_body["candidate_constituency"],
 		]);
-		
 	}
 }

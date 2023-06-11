@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoterController;
 use App\Http\Controllers\VotingPageController;
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\EnsureNAVoteNotCasted;
 use App\Http\Middleware\EnsureUserIsECPAdmin;
 use App\Http\Middleware\EnsureVoterPassVerified;
 use App\Http\Middleware\isRegisteredByNADRA;
@@ -29,6 +30,11 @@ use Symfony\Component\HttpFoundation\Request;
 */
 
 Route::middleware([Authenticate::class, isRegisteredByNADRA::class])->group(function () {
+
+	Route::middleware([EnsureNAVoteNotCasted::class])->group(function () {
+
+		Route::get('/candidates', [VotingPageController::class, 'displayVotingPage']);
+	});
 
 	Route::get('/verify_account', [UserController::class, 'displayVerifyAccountPage']);
 
@@ -54,7 +60,6 @@ Route::middleware([Authenticate::class, isRegisteredByNADRA::class])->group(func
 		}
 		return response()->json(['message' => 'Failed to save the model'], 500);
 	});
-	Route::get('/candidates', [VotingPageController::class, 'displayVotingPage']);
 });
 
 Route::middleware([Authenticate::class])->group(function () {
@@ -65,16 +70,22 @@ Route::middleware([Authenticate::class])->group(function () {
 	Route::get('/profile', [UserController::class, 'displayProfilePage']);
 });
 Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('admin')->group(function () {
+
+
 	Route::get('/dashboard', function () {
 		return view('admin_panel_home');
 	});
+
 	Route::get('/upload_candidates', function () {
 		return view('ecp.upload_candidates');
 	});
+
 	Route::get('/settings', function () {
 		return view('ecp.settings');
 	});
+
 	Route::post('/set_election_timing', [ECPController::class, 'setElectionTime']);
+
 	Route::post('/upload_candidates', [ECPController::class, 'uploadElectionCandidatesCSV']);
 
 	Route::get('/upload_parties', function () {
@@ -95,7 +106,9 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 });
 
 Route::middleware([Authenticate::class, isRegisteredByNADRA::class,  EnsureVoterPassVerified::class])->group(function () {
+
 	Route::get('/vote', [VoterController::class, 'displayVotePage']);
+
 	Route::post('/cast_na_vote', [VoterController::class, 'castNAVote']);
 });
 
@@ -109,10 +122,12 @@ Route::get('/', function () {
 });
 
 Route::get('/admin', [ECPController::class, 'displayLoginPage']);
+
 Route::post('/admin/login', [ECPController::class, 'authenticateECPAdmin']);
 
 
 Route::post('/login', [AuthController::class, 'authenticate'])->name('login');
+
 Route::get('/login', function () {
 	return view('login');
 });
@@ -120,6 +135,7 @@ Route::get('/login', function () {
 Route::get('/register', function () {
 	return view('registration_page');
 });
+
 Route::post('/register', [UserController::class, 'store']);
 
 Route::get('/logout', [AuthController::class, 'logout']);
@@ -127,6 +143,7 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::get('/results', function () {
 	return view('election_results_page');
 });
+
 Route::get('/about-us', function () {
 	return view('about_us');
 });
@@ -134,6 +151,7 @@ Route::get('/about-us', function () {
 Route::get('/nadra-error', function () {
 	return view('error_page');
 });
+
 Route::get('/sms_simulator', function () {
 	return view('sms_simulator');
 });

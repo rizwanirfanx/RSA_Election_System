@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ElectionMeta;
 use App\Models\NA_Candidates;
 use App\Models\NaSeat;
 use App\Models\User_Meta;
@@ -19,7 +20,15 @@ class ECPController extends Controller
 		$ending_time = DateTime::createFromFormat("Y-m-d\TH:i", $request->election_ending_time);
 		$diff = $starting_time->diff($ending_time);
 		if ($diff->invert === 0) {
-			ddd("The Ending Time is in the Future");
+			ElectionMeta::create([
+				'meta_key' => 'starting_time',
+				'meta_value' => $starting_time,
+			]);
+			ElectionMeta::create([
+				'meta_key' => 'ending_time',
+				'meta_value' => $ending_time,
+			]);
+			return view('verification_successful');
 		}
 		ddd("The Ending TIME is BEFORE STARTING TIME");
 	}

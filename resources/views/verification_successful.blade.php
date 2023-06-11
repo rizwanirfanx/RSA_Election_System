@@ -1,9 +1,5 @@
-@extends('layouts.app')
+<x-voter-layout>
 
-@section('title', 'Account Verification Successful')
-
-
-@section('content')
     <!-- component -->
     <div class="bg-gray-100 h-screen">
         <div class="bg-white p-6  md:mx-auto">
@@ -23,4 +19,5 @@
             </div>
         </div>
     </div>
-@endsection
+
+</x-voter-layout>
