@@ -19,7 +19,8 @@
                         <label for="constituency" class="block mb-2 text-sm font-medium text-gray-900 ">Select an
                             option</label>
                         <select id="countries"
-                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " name="na_constituency">
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                            name="na_constituency">
                             @foreach ($na_constituencies as $na_constituency)
                                 <option value="{{ $na_constituency->constituency_number }}">
                                     {{ $na_constituency->province }} , {{ $na_constituency->constituency_number }},
@@ -45,7 +46,8 @@
                     <label for="party_symbol_number" class="block mb-2 text-sm font-medium text-gray-900 ">Select an
                         option</label>
                     <select id="party_symbol_number"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " name="party_symbol_number">
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                        name="party_symbol_number">
                         @foreach ($parties as $party)
                             <option value="{{ $party->p_symbol_number }}">
 

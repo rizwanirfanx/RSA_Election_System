@@ -17,10 +17,13 @@
             <div class="my-5"></div>
             <x-nav-components.nav-button title="Add NA Candidate" link="/admin/add_na_candidate" icon="fa-person" />
             <x-nav-components.nav-button title="Display NA Candidates" link="/admin/na_candidates" icon="fa-users" />
-
+            <x-nav-components.nav-button title="Add NA Seat" link="/admin/na_candidates" icon="fa-users" />
+            <x-nav-components.nav-button title="Add PA Candidate" link="/admin/add_pa_candidate" icon="fa-person" />
+            <x-nav-components.nav-button title="Display PA Candidates" link="/admin/pa_candidates" icon="fa-users" />
+            <x-nav-components.nav-button title="Add PA Seat" link="/admin/add_pa_seat" icon="fa-users" />
             <x-nav-components.nav-button title="Display Parties" link="/admin/parties" icon="fa-landmark" />
-            <x-nav-components.nav-button title="Add NADRA Verification Details" link="/admin/parties"
-                icon="fa-landmark" />
+            <x-nav-components.nav-button title="Add NADRA Verification Details"
+                link="/admin/add_nadra_verification_details" icon="fa-landmark" />
             <x-nav-components.nav-button title="Settings" link="/admin/settings" icon="fa-gear" />
             <x-nav-components.nav-button title="Display Results" link="/admin/display_results" icon="fa-chart-simple" />
             <x-nav-components.nav-button title="Logout" link="/logout" icon="fa-right-from-bracket" />
@@ -29,8 +32,9 @@
             <nav class="bg-gray-100 p-4">
                 <div class="flex">
                     <div class="left">
-                        <h3 class="font-semibold text-2xl fami">Welcome {{Auth::user()->name;}} 🎊</h3>
-                        <p class="text-gray-800 font-light text-sm mt-2">Welcome to Modern Elections (Transparent, Fast, Private & Secure ! )</p>
+                        <h3 class="font-semibold text-2xl fami">Welcome {{ Auth::user()->name }} 🎊</h3>
+                        <p class="text-gray-800 font-light text-sm mt-2">Welcome to Modern Elections (Transparent, Fast,
+                            Private & Secure ! )</p>
                     </div>
                     <div class="right">
                     </div>

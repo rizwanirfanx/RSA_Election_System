@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ElectionMeta;
 use App\Models\NA_Candidates;
 use App\Models\NaSeat;
+use App\Models\PA_Seat;
 use App\Models\User_Meta;
 use DateTime;
 use Illuminate\Http\Request;
@@ -125,6 +126,22 @@ class ECPController extends Controller
 	}
 	public function addNACandidate(Request $request)
 	{
+		$constituency = $request->na_constituency;
+		$party = $request->party_symbol_number;
+		$candidateExists = NA_Candidates::where('party_symbol_number', $party)
+			->where('constituency_number', $constituency)
+			->first();
+		if ($candidateExists != null) {
+			return view(
+				'error_page',
+				[
+					'error_title' => 'Existing Candidate',
+					'error_message' => 'Candidate from this party Already Exists',
+				]
+			);
+		}
+
+
 		$new_na_candidate = new NA_Candidates;
 		$new_na_candidate->name = $request->name;
 		$new_na_candidate->constituency_number = $request->na_constituency;
@@ -196,5 +213,35 @@ class ECPController extends Controller
 		return back()->withErrors([
 			'email' => 'The provided credentials do not match our records.',
 		])->onlyInput('email');
+	}
+	public function displayNADRAPage()
+	{
+		return view('ecp.add_nadra_verification_details');
+	}
+	public function displayAddPACandidatePage()
+	{
+		return view('ecp.add_pa_candidate');
+	}
+	public function displayAddPASeatPage()
+	{
+		return view('ecp.add_pa_seat');
+	}
+	public function addPASeat(Request $request)
+	{
+		$data = $request->validate(
+			[
+				'ps_area_name' => 'required|unique:App\Models\PA_Seat',
+				'ps_constituency' => 'required|unique:App\Models\PA_Seat',
+				'province' => 'required'
+			]
+		);
+		PA_Seat::create(
+			[
+				'ps_constituency' => $request->ps_constituency,
+				'ps_area_name' => $request->ps_area_name,
+				'province' => $request->province,
+			]
+		);
+		return view('verification_successful');
 	}
 }

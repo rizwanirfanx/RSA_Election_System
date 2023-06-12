@@ -95,14 +95,26 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 	Route::post('/upload_parties', [ECPController::class, 'uploadPoliticalParties']);
 
 	Route::get('/parties', [ECPController::class, 'displayParties']);
-
+//
+// NA ROUTES
+//
 	Route::get('/na_candidates', [ECPController::class, 'displayNACandidatesPage']);
 
 	Route::get('/add_na_candidate', [ECPController::class, 'displayAddCandidatePage']);
 
 	Route::post('/add_na_candidate', [ECPController::class, 'addNACandidate']);
+//
+// PA Routes
+//
+	Route::get('/add_pa_candidate', [ECPController::class, 'displayAddPACandidatePage']);
+	
+	Route::get('/add_pa_seat' , [ECPController::class, 'displayAddPASeatPage']);
+
+	Route::post('/add_pa_seat' , [ECPController::class, 'addPASeat']);
 
 	Route::get('/display_results', [ECPController::class, 'displayResults']);
+
+	Route::get('/add_nadra_verification_details', [ECPController::class,  'displayNADRAPage']);
 });
 
 Route::middleware([Authenticate::class, isRegisteredByNADRA::class,  EnsureVoterPassVerified::class])->group(function () {
