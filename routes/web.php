@@ -112,6 +112,8 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 
 	Route::post('/add_pa_seat' , [ECPController::class, 'addPASeat']);
 
+	Route::get('/display_pa_seats' , [ECPController::class, 'displayPASeats']);
+
 	Route::get('/display_results', [ECPController::class, 'displayResults']);
 
 	Route::get('/add_nadra_verification_details', [ECPController::class,  'displayNADRAPage']);

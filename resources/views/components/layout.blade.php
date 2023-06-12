@@ -20,7 +20,8 @@
             <x-nav-components.nav-button title="Add NA Seat" link="/admin/na_candidates" icon="fa-users" />
             <x-nav-components.nav-button title="Add PA Candidate" link="/admin/add_pa_candidate" icon="fa-person" />
             <x-nav-components.nav-button title="Display PA Candidates" link="/admin/pa_candidates" icon="fa-users" />
-            <x-nav-components.nav-button title="Add PA Seat" link="/admin/add_pa_seat" icon="fa-users" />
+            <x-nav-components.nav-button title="Add PA Seat" link="/admin/add_pa_seat" icon="fa-chair" />
+            <x-nav-components.nav-button title="Display PA Seats" link="/admin/display_pa_seats" icon="fa-eye" />
             <x-nav-components.nav-button title="Display Parties" link="/admin/parties" icon="fa-landmark" />
             <x-nav-components.nav-button title="Add NADRA Verification Details"
                 link="/admin/add_nadra_verification_details" icon="fa-landmark" />

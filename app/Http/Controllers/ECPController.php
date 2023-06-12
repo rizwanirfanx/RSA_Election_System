@@ -244,4 +244,10 @@ class ECPController extends Controller
 		);
 		return view('verification_successful');
 	}
+	public function displayPASeats()
+	{
+		return view('ecp.pa_seats', [
+			'pa_seats' => PA_Seat::all(),
+		]);
+	}
 }
