@@ -3,7 +3,7 @@
     <section class="col-span-4 mx-6 bg-gray-100 rounded-lg">
         <div class="form-container shadow-xl px-4 py-6 rounded-md">
             <h3 class="my-4 font-semibold text-lg">Add Candidate</h3>
-            <form action="/admin/add_na_candidate" method="POST">
+            <form action="/admin/add_pa_candidate" method="POST">
                 @csrf
                 <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -13,18 +13,18 @@
                         </label>
                         <input
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name" type="text" placeholder="Saad" name="name">
+                            id="grid-first-name" type="text" placeholder="PA Candidate Name" name="name">
                     </div>
                     <div class="md:w-1/2 px-3">
                         <label for="constituency" class="block mb-2 text-sm font-medium text-gray-900 ">Select an
                             option</label>
                         <select id="countries"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                            name="na_constituency">
-                            @foreach ($na_constituencies as $na_constituency)
-                                <option value="{{ $na_constituency->constituency_number }}">
-                                    {{ $na_constituency->province }} , {{ $na_constituency->constituency_number }},
-                                    {{ $na_constituency->constituency_name }}</option>
+                            name="constituency_number">
+                            @foreach ($pa_constituencies as $pa_constituency)
+                                <option value="{{ $pa_constituency->ps_constituency }}">
+                                    {{ $pa_constituency->ps_constituency }} , {{ $pa_constituency->province }},
+                                    {{ $pa_constituency->ps_area_name }}</option>
                             @endforeach
                         </select>
 
@@ -42,9 +42,18 @@
                             id="grid-password" type="text" name="address">
                     </div>
                 </div>
+                <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                    <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                        for="grid-first-name">
+                        CNIC
+                    </label>
+                    <input
+                        class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                        id="grid-first-name" type="text" placeholder="xxxxx-xxxxxxx-x" name="cnic">
+                </div>
                 <div class="px-3">
                     <label for="party_symbol_number" class="block mb-2 text-sm font-medium text-gray-900 ">Select an
-                        option</label>
+                        Party</label>
                     <select id="party_symbol_number"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                         name="party_symbol_number">

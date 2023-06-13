@@ -1,3 +1,3 @@
 <x-layout>
-	<h3>Admin Panel Home</h3>
+	<h1>There will be Statistics of the Website</h1>
 </x-layout>

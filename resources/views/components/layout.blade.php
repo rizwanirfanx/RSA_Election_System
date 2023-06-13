@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>{{ $title ?? 'Todo Manager' }}</title>
+    <title>{{ $title ?? 'ECP Admin Page' }}</title>
     @vite('resources/css/app.css')
 </head>
 

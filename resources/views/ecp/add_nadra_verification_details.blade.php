@@ -13,7 +13,7 @@
                         </label>
                         <input
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name" type="text" placeholder="xxxxx-xxxxxxx-x" name="name">
+                            id="grid-first-name" type="text" placeholder="xxxxx-xxxxxxx-x" name="cnic">
                     </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-6">
@@ -24,7 +24,18 @@
                         </label>
                         <input
                             class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name" type="text" placeholder="Rozeena" name="name">
+                            id="grid-first-name" type="text" placeholder="Rozeena" name="mother_name">
+                    </div>
+                </div>
+                <div class="flex flex-wrap -mx-3 mb-6">
+                    <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                            for="grid-first-name">
+                            Name of CNIC Holder
+                        </label>
+                        <input
+                            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                            id="grid-first-name" type="text" placeholder="Name" name="name">
                     </div>
                 </div>
 
@@ -33,7 +44,37 @@
                     CNIC Expiry Date
                 </label>
 
-                <input id="cnic-expiry" type="date" class="p-2 bg-gray-200 text-gray-700" />
+                <input id="cnic-expiry" type="date" class="p-2 bg-gray-200 text-gray-700" name="cnic_expiry_date" />
+
+                <div class="w-1/2 mt-4">
+                    <label for="constituency" class="block mb-2 text-sm font-medium text-gray-900 ">Select
+                        NA Constituency</label>
+                    <select id="countries"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                        name="na_constituency">
+                        @foreach ($na_constituencies as $na_constituency)
+                            <option value="{{ $na_constituency->constituency_number }}">
+                                {{ $na_constituency->constituency_number }} {{ $na_constituency->constituency_name }}
+                            </option>
+                        @endforeach
+                    </select>
+
+
+                </div>
+                <div class="w-1/2 mt-4">
+                    <label for="constituency" class="block mb-2 text-sm font-medium text-gray-900 ">Select PA
+                        Constituency</label>
+                    <select id="countries"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
+                        name="na_constituency">
+                        @foreach ($pa_constituencies as $pa_constituency)
+                            <option value="{{ $pa_constituency->ps_constituency }}">
+                                {{ $pa_constituency->ps_constituency }} {{ $pa_constituency->ps_area_name }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                </div>
 
                 <div class="mt-8">
 

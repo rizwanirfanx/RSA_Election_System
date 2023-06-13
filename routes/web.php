@@ -95,24 +95,29 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 	Route::post('/upload_parties', [ECPController::class, 'uploadPoliticalParties']);
 
 	Route::get('/parties', [ECPController::class, 'displayParties']);
-//
-// NA ROUTES
-//
+	//
+	// NA ROUTES
+	//
 	Route::get('/na_candidates', [ECPController::class, 'displayNACandidatesPage']);
 
 	Route::get('/add_na_candidate', [ECPController::class, 'displayAddCandidatePage']);
 
 	Route::post('/add_na_candidate', [ECPController::class, 'addNACandidate']);
-//
-// PA Routes
-//
+	//
+	// PA Routes
+	//
 	Route::get('/add_pa_candidate', [ECPController::class, 'displayAddPACandidatePage']);
-	
-	Route::get('/add_pa_seat' , [ECPController::class, 'displayAddPASeatPage']);
 
-	Route::post('/add_pa_seat' , [ECPController::class, 'addPASeat']);
+	Route::post('/add_pa_candidate', [ECPController::class, 'addPACandidate']);
 
-	Route::get('/display_pa_seats' , [ECPController::class, 'displayPASeats']);
+	Route::get('/pa_candidates', [ECPController::class, 'displayPACandidates']);
+
+	Route::get('/add_pa_seat', [ECPController::class, 'displayAddPASeatPage']);
+
+	Route::post('/add_pa_seat', [ECPController::class, 'addPASeat']);
+
+	Route::get('/display_pa_seats', [ECPController::class, 'displayPASeats']);
+
 
 	Route::get('/display_results', [ECPController::class, 'displayResults']);
 

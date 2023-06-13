@@ -1,0 +1,4 @@
+Put Name in NADRA CNIC
+
+Put CNIC Info of Each Candidate in Both NA_Candidate & PA_Candidate Table
+

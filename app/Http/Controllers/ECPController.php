@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\ElectionMeta;
 use App\Models\NA_Candidates;
+use App\Models\NA_Seat;
 use App\Models\NaSeat;
+use App\Models\PA_Candidate;
 use App\Models\PA_Seat;
+use App\Models\Party;
 use App\Models\User_Meta;
 use DateTime;
 use Illuminate\Http\Request;
@@ -189,7 +192,6 @@ class ECPController extends Controller
 
 	function displayLoginPage()
 	{
-
 		return view('ecp.login');
 	}
 
@@ -216,11 +218,58 @@ class ECPController extends Controller
 	}
 	public function displayNADRAPage()
 	{
-		return view('ecp.add_nadra_verification_details');
+		$pa_seats = PA_Seat::all(['ps_constituency', 'ps_area_name']);
+		$na_seats = NA_Seat::all(['constituency_number', 'constituency_name']);
+
+		return view(
+			'ecp.add_nadra_verification_details',
+			[
+				'pa_constituencies' => $pa_seats,
+				'na_constituencies' => $na_seats,
+			]
+		);
 	}
 	public function displayAddPACandidatePage()
 	{
-		return view('ecp.add_pa_candidate');
+
+		return view('ecp.add_pa_candidate', [
+			'parties' => Party::all(),
+			'pa_constituencies' => PA_Seat::all(),
+
+		]);
+	}
+
+	public function addPACandidate(Request $request)
+	{
+		$request->validate(
+			[
+				'name' => 'required',
+				'cnic' => 'required|unique:App\Models\PA_Candidate',
+				'address' => 'required',
+				'constituency_number' => 'required',
+				'party_symbol_number' => 'required',
+			]
+		);
+
+		PA_Candidate::create([
+			'name' => $request->name,
+			'cnic' => $request->cnic,
+			'address' => $request->address,
+			'constituency_number' => $request->constituency_number,
+			'party_symbol_number' => $request->party_symbol_number,
+		]);
+
+		return view('verification_successful');
+	}
+
+	public function displayPACandidates()
+	{
+		$candidates = DB::table('pa_candidates')
+			->join('party', 'party_symbol_number', '=', 'p_symbol_number')
+			->select('pa_candidates.*', 'party.p_name')->get();
+		return view('ecp.pa_candidates', [
+			'candidates' => $candidates
+		]);
 	}
 	public function displayAddPASeatPage()
 	{
@@ -228,7 +277,7 @@ class ECPController extends Controller
 	}
 	public function addPASeat(Request $request)
 	{
-		$data = $request->validate(
+		$request->validate(
 			[
 				'ps_area_name' => 'required|unique:App\Models\PA_Seat',
 				'ps_constituency' => 'required|unique:App\Models\PA_Seat',
