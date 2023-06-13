@@ -7,6 +7,7 @@ use App\Http\Controllers\VoterController;
 use App\Http\Controllers\VotingPageController;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\EnsureNAVoteNotCasted;
+use App\Http\Middleware\EnsurePAVoteNotCasted;
 use App\Http\Middleware\EnsureUserIsECPAdmin;
 use App\Http\Middleware\EnsureVoterPassVerified;
 use App\Http\Middleware\isRegisteredByNADRA;
@@ -33,14 +34,23 @@ Route::middleware([Authenticate::class, isRegisteredByNADRA::class])->group(func
 
 	Route::middleware([EnsureNAVoteNotCasted::class])->group(function () {
 
+
 		Route::get('/candidates', [VotingPageController::class, 'displayVotingPage']);
 	});
+
+	Route::middleware([EnsurePAVoteNotCasted::class])->group(function () {
+		Route::post('/cast_pa_vote', [VoterController::class, 'castPAVote']);
+	});
+
+
+	Route::get('/pa_candidates', [VotingPageController::class, 'displayPAVotingPage']);
 
 	Route::get('/verify_account', [UserController::class, 'displayVerifyAccountPage']);
 
 	Route::post('/verify_account', [UserController::class, 'verify_account']);
 
 	Route::get('/voter-verification', function () {
+
 		return view('voter_pass_verification');
 	});
 

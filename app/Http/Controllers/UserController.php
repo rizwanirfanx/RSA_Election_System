@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\User_Meta;
+use App\Models\VoterPhoneNumber;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -75,6 +76,7 @@ class UserController extends Controller
 		$randNadraData = DB::table('nadra_cnic')->where('mother_name', '!=', $curr_user_mother_name)->inRandomOrder()->limit(3)->get()->all();
 		$mergedNadraData = array_merge($nadraDataOfCurrentUser, $randNadraData);
 		shuffle($mergedNadraData);
+//		ddd(VoterPhoneNumber::where('user_id', Auth::user()->getAuthIdentifier())->get());
 		return view('verify_account', ['nadra_data' => $mergedNadraData]);
 	}
 	public function displayProfilePage(Request $request)

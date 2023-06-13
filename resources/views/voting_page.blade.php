@@ -28,6 +28,15 @@
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Vote</a>
                         </td>
                     </tr>
+                    <tr class="bg-white border-b ">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+				{{$voter_nadra_info->pa_constituency_number}}
+                        </th>
+                        <td class="px-6 py-4">
+                            <a href="/pa_candidates"
+                                class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Vote</a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

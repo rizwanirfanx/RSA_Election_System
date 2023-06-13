@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\NAVote;
+use App\Models\PA_Vote;
 use App\Models\User;
 use App\Models\User_Meta;
 use Illuminate\Http\Request;
@@ -66,6 +67,20 @@ class VoterController extends Controller
 			'voter_id' => Auth::user()->getAuthIdentifier(),
 			'candidate_id' => $request_body["candidate_id"],
 			'na_constituency_number' => $request_body["candidate_constituency"],
+		]);
+	}
+
+	public function castPAVote(Request $request)
+	{
+		$userVoted = PA_Vote::where('voter_id', Auth::user()->getAuthIdentifier())->first();
+		if ($userVoted != null) {
+			return view('error_page',  ['error_title' => 'Already Casted PA Vote', 'error_message' => 'You have already casted your vote']);
+		}
+		$request_body = ($request->all());
+		PA_Vote::create([
+			'voter_id' => Auth::user()->getAuthIdentifier(),
+			'candidate_id' => $request_body["candidate_id"],
+			'pa_code' => $request_body["pa_code"],
 		]);
 	}
 }

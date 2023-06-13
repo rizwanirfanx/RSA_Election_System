@@ -15,8 +15,6 @@
                 </a>
             </div>
             <div class="my-5"></div>
-						<ol>
-						</ol>
             <x-nav-components.nav-button title="Add NA Candidate" link="/admin/add_na_candidate" icon="fa-person" />
             <x-nav-components.nav-button title="Display NA Candidates" link="/admin/na_candidates" icon="fa-users" />
             <x-nav-components.nav-button title="Add NA Seat" link="/admin/na_candidates" icon="fa-users" />
@@ -49,8 +47,5 @@
         </div>
     </section>
 </body>
-<script>
-	
-</script>
 
 </html>

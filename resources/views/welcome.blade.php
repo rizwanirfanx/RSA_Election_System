@@ -15,8 +15,6 @@
 
             <a href="/register" class="svg_container text-center px-6 py-10 rounded-full mx-3">
 		    
-
-
                 <svg class="fill-green-900 m-auto" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960"
                     width="48">
                     <path

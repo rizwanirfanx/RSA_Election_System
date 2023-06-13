@@ -10,7 +10,9 @@ use App\Models\NaSeat;
 use App\Models\PA_Candidate;
 use App\Models\PA_Seat;
 use App\Models\Party;
+use App\Models\User;
 use App\Models\User_Meta;
+use App\Models\VoterPhoneNumber;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +35,7 @@ class ECPController extends Controller
 				'meta_key' => 'ending_time',
 				'meta_value' => $ending_time,
 			]);
-			return view('verification_successful');
+			return view('ecp.success_page');
 		}
 		ddd("The Ending TIME is BEFORE STARTING TIME");
 	}
@@ -153,7 +155,7 @@ class ECPController extends Controller
 		$new_na_candidate->party_symbol_number = $request->party_symbol_number;
 		$isSavedSuccessfully = $new_na_candidate->save();
 		if ($isSavedSuccessfully) {
-			return view('verification_successful');
+			return view('ecp.success_page');
 		}
 	}
 	public function displayResults()
@@ -240,6 +242,17 @@ class ECPController extends Controller
 				'cnic_expiry_date' => 'required',
 				'na_constituency_number' => 'required',
 				'pa_constituency_number' => 'required',
+				'phone_number' => 'required',
+			]
+		);
+		$user = (User::where('cnic', $request->cnic)->first());
+		if ($user == null) {
+			ddd("FUCK");
+		}
+		VoterPhoneNumber::create(
+			[
+				'phone_number' => $request->phone_number,
+				'user_id' => $user->id,
 			]
 		);
 		NadraDB::create(
@@ -274,6 +287,13 @@ class ECPController extends Controller
 			]
 		);
 
+		$memberExists = PA_Candidate::where('party_symbol_number', $request->party_symbol_number)
+			->where('constituency_number', $request->constituency_number)
+			->first();
+
+
+
+
 		PA_Candidate::create([
 			'name' => $request->name,
 			'cnic' => $request->cnic,
@@ -282,7 +302,13 @@ class ECPController extends Controller
 			'party_symbol_number' => $request->party_symbol_number,
 		]);
 
-		return view('verification_successful');
+		return view(
+			'ecp.success_page',
+			[
+				'title' => 'PA Member Added',
+				'description' => 'PA Member ' . $request->name . ' has been successfully added in ' . $request->constituency_number,
+			]
+		);
 	}
 
 	public function displayPACandidates()
@@ -314,7 +340,7 @@ class ECPController extends Controller
 				'province' => $request->province,
 			]
 		);
-		return view('verification_successful');
+		return view('ecp.success_page');
 	}
 	public function displayPASeats()
 	{
