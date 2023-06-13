@@ -122,6 +122,8 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 	Route::get('/display_results', [ECPController::class, 'displayResults']);
 
 	Route::get('/add_nadra_verification_details', [ECPController::class,  'displayNADRAPage']);
+
+	Route::post('/add_nadra_verification_details', [ECPController::class,  'addNADRADetails']);
 });
 
 Route::middleware([Authenticate::class, isRegisteredByNADRA::class,  EnsureVoterPassVerified::class])->group(function () {

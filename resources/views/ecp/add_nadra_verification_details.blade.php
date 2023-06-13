@@ -3,7 +3,17 @@
     <section class="col-span-4 mx-6 bg-gray-100 rounded-lg">
         <div class="form-container shadow-xl px-4 py-6 rounded-md">
             <h3 class="my-4 font-semibold text-lg">Add Verification Details</h3>
-            <form action="/admin/add_na_candidate" method="POST">
+            <form action="/admin/add_nadra_verification_details" method="POST">
+                @if ($errors->any())
+                    <div class="warning_box bg-red-300 p-8 my-6 w-3/4 rounded-lg">
+                        <h3 class="font-bold">Errors</h3>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 @csrf
                 <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
@@ -51,7 +61,7 @@
                         NA Constituency</label>
                     <select id="countries"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                        name="na_constituency">
+                        name="na_constituency_number">
                         @foreach ($na_constituencies as $na_constituency)
                             <option value="{{ $na_constituency->constituency_number }}">
                                 {{ $na_constituency->constituency_number }} {{ $na_constituency->constituency_name }}
@@ -66,7 +76,7 @@
                         Constituency</label>
                     <select id="countries"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
-                        name="na_constituency">
+                        name="pa_constituency_number">
                         @foreach ($pa_constituencies as $pa_constituency)
                             <option value="{{ $pa_constituency->ps_constituency }}">
                                 {{ $pa_constituency->ps_constituency }} {{ $pa_constituency->ps_area_name }}

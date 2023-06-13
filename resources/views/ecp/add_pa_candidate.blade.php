@@ -4,6 +4,16 @@
         <div class="form-container shadow-xl px-4 py-6 rounded-md">
             <h3 class="my-4 font-semibold text-lg">Add Candidate</h3>
             <form action="/admin/add_pa_candidate" method="POST">
+                @if ($errors->any())
+                    <div class="warning_box bg-red-300 p-8 my-6 w-3/4 rounded-lg">
+                        <h3 class="font-bold">Errors</h3>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 @csrf
                 <div class="flex flex-wrap -mx-3 mb-6">
                     <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">

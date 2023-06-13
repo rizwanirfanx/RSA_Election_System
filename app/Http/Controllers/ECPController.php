@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ElectionMeta;
 use App\Models\NA_Candidates;
 use App\Models\NA_Seat;
+use App\Models\NadraDB;
 use App\Models\NaSeat;
 use App\Models\PA_Candidate;
 use App\Models\PA_Seat;
@@ -226,6 +227,28 @@ class ECPController extends Controller
 			[
 				'pa_constituencies' => $pa_seats,
 				'na_constituencies' => $na_seats,
+			]
+		);
+	}
+
+	public function addNADRADetails(Request $request)
+	{
+		$request->validate(
+			[
+				'cnic' => 'required',
+				'mother_name' => 'required',
+				'cnic_expiry_date' => 'required',
+				'na_constituency_number' => 'required',
+				'pa_constituency_number' => 'required',
+			]
+		);
+		NadraDB::create(
+			[
+				'cnic_expiry_date' => $request->cnic_expiry_date,
+				'mother_name' => $request->mother_name,
+				'cnic' => $request->cnic,
+				'na_constituency_number' => $request->na_constituency_number,
+				'pa_constituency_number' => $request->pa_constituency_number,
 			]
 		);
 	}

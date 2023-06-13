@@ -15,4 +15,11 @@ class NadraDB extends Model
 	{
 		return $this->belongsTo(User::class);
 	}
+	protected $fillable = [
+		'cnic',
+		'cnic_expiry_date',
+		'mother_name',
+		'na_constituency_number',
+		'pa_constituency_number',
+	];
 }
