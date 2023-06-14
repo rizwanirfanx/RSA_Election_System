@@ -19,7 +19,8 @@
 						</ol>
             <x-nav-components.nav-button title="Add NA Candidate" link="/admin/add_na_candidate" icon="fa-person" />
             <x-nav-components.nav-button title="Display NA Candidates" link="/admin/na_candidates" icon="fa-users" />
-            <x-nav-components.nav-button title="Add NA Seat" link="/admin/na_candidates" icon="fa-users" />
+            <x-nav-components.nav-button title="Add NA Seat" link="/admin/add_na_seat" icon="fa-chair" />
+            <x-nav-components.nav-button title="Display NA Seats" link="/admin/display_na_seats" icon="fa-eye" />
             <x-nav-components.nav-button title="Add PA Candidate" link="/admin/add_pa_candidate" icon="fa-person" />
             <x-nav-components.nav-button title="Display PA Candidates" link="/admin/pa_candidates" icon="fa-users" />
             <x-nav-components.nav-button title="Add PA Seat" link="/admin/add_pa_seat" icon="fa-chair" />

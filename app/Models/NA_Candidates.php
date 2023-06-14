@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class NA_Candidates extends Model
 {
 	protected $table = 'na_candidates';
-	protected $fillable = ['name', 'address', 'constituency_number', 'party_symbol_number'];
+	protected $fillable = ['name', 'address', 'constituency_number', 'party_symbol_number', 'cnic'];
 	use HasFactory;
 }

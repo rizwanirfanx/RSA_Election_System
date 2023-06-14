@@ -113,6 +113,12 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 	Route::get('/add_na_candidate', [ECPController::class, 'displayAddCandidatePage']);
 
 	Route::post('/add_na_candidate', [ECPController::class, 'addNACandidate']);
+
+	Route::get('/add_na_seat' , [ECPController::class, 'displayAddNASeatPage']);
+
+	Route::post('/add_na_seat' , [ECPController::class, 'addNASeat']);
+
+	Route::get('/display_na_seats' , [ECPController::class, 'displayNASeats']);
 	//
 	// PA Routes
 	//

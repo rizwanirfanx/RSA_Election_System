@@ -132,14 +132,25 @@ class ECPController extends Controller
 	}
 	public function addNACandidate(Request $request)
 	{
-		$constituency = $request->na_constituency;
+		$request->validate(
+
+			[
+				'cnic' => 'required|unique:App\Models\NA_Candidates',
+				'constituency_number' => 'required',
+				'address' => 'required',
+				'party_symbol_number' => 'required',
+
+			]
+
+		);
+		$constituency = $request->constituency_number;
 		$party = $request->party_symbol_number;
 		$candidateExists = NA_Candidates::where('party_symbol_number', $party)
 			->where('constituency_number', $constituency)
 			->first();
 		if ($candidateExists != null) {
 			return view(
-				'error_page',
+				'ecp.error_page',
 				[
 					'error_title' => 'Existing Candidate',
 					'error_message' => 'Candidate from this party Already Exists',
@@ -150,14 +161,42 @@ class ECPController extends Controller
 
 		$new_na_candidate = new NA_Candidates;
 		$new_na_candidate->name = $request->name;
-		$new_na_candidate->constituency_number = $request->na_constituency;
+		$new_na_candidate->constituency_number = $request->constituency_number;
 		$new_na_candidate->address = $request->address;
 		$new_na_candidate->party_symbol_number = $request->party_symbol_number;
+		$new_na_candidate->cnic = $request->cnic;
 		$isSavedSuccessfully = $new_na_candidate->save();
 		if ($isSavedSuccessfully) {
-			return view('ecp.success_page');
+			return view('ecp.success_page', [
+				'title' => 'NA Candidate Added!',
+				'description' => 'National Assembly Candidate ' .
+					$request->name . ' has been added Successfully for NA Seat '
+					. $request->constituency_number,
+			]);
 		}
 	}
+
+	public function displayAddNASeatPage()
+	{
+		return view('ecp.add_na_seat');
+	}
+
+	public function addNASeat(Request $request)
+	{
+		$request->validate(
+			[
+				'constituency_number' => 'required|unique:App\Models\NA_Seat',
+				'constituency_name' => 'required'
+			]
+		);
+		NA_Seat::create(
+			[
+				'constituency_name' => $request->constituency_number,
+				'constituency_name' => $request->constituency_name,
+			]
+		);
+	}
+
 	public function displayResults()
 	{
 		$voteCounts = DB::table('na_votes')
@@ -346,6 +385,12 @@ class ECPController extends Controller
 	{
 		return view('ecp.pa_seats', [
 			'pa_seats' => PA_Seat::all(),
+		]);
+	}
+	public function displayNASeats()
+	{
+		return view('ecp.na_seats', [
+			'na_seats' => NA_Seat::all(),
 		]);
 	}
 }
