@@ -23,8 +23,8 @@ class ECPController extends Controller
 {
 	public function setElectionTime(Request $request)
 	{
-		$starting_time = DateTime::createFromFormat("Y-m-d\TH:i", $request->election_starting_time);
-		$ending_time = DateTime::createFromFormat("Y-m-d\TH:i", $request->election_ending_time);
+		$starting_time = DateTime::createFromFormat("Y-m-d", $request->election_starting_time);
+		$ending_time = DateTime::createFromFormat("Y-m-d", $request->election_ending_time);
 		$diff = $starting_time->diff($ending_time);
 		if ($diff->invert === 0) {
 			ElectionMeta::create([
@@ -35,9 +35,20 @@ class ECPController extends Controller
 				'meta_key' => 'ending_time',
 				'meta_value' => $ending_time,
 			]);
-			return view('ecp.success_page');
+			return view(
+				'ecp.success_page',
+				[
+					'title' => 'Election Timing Has been set successfully',
+					'description' => "Election Timing has been set successfully, The Elections will start on "
+						. $request->election_starting_time .
+						" & Elections will end on " . $request->election_ending_time,
+				]
+			);
 		}
-		ddd("The Ending TIME is BEFORE STARTING TIME");
+		return view('ecp.error_page', [
+			'error_title' => 'Invalid Timing',
+			'error_message' => "The Election cannot be Stopped before it starts!",
+		]);
 	}
 
 	//
@@ -215,6 +226,23 @@ class ECPController extends Controller
 				->groupBy('na_constituency_number', 'candidate_id');
 		}, 'subquery');
 
+		$subquery_for_pa = DB::table(function ($query) {
+			$query->select(
+				'pa_code',
+				'candidate_id',
+				DB::raw('COUNT(*) AS occurrences'),
+				DB::raw('ROW_NUMBER() OVER (PARTITION BY pa_code ORDER BY COUNT(*) DESC) AS rn')
+			)
+				->from('pa_votes')
+				->groupBy('pa_code', 'candidate_id');
+		}, 'subquery');
+
+		$results_of_pa =
+			DB::table($subquery_for_pa)
+			->where('rn', 1)
+			->select('pa_code', 'candidate_id')
+			->get();
+
 		$results = DB::table($subquery)
 			->where('rn', 1)
 			->select('na_constituency_number', 'candidate_id')
@@ -225,10 +253,16 @@ class ECPController extends Controller
 			$result->winner_name = $candidate_info->name;
 			$result->party_symbol_number = $candidate_info->party_symbol_number;
 		}
+		foreach ($results_of_pa as $result) {
+			$candidate_info = PA_Candidate::find($result->candidate_id);
+			$result->winner_name = $candidate_info->name;
+			$result->party_symbol_number = $candidate_info->party_symbol_number;
+		}
 
 
 		return view('ecp.display_results', [
 			'results' => $results,
+			'pa_results' => $results_of_pa,
 		]);
 	}
 
@@ -326,11 +360,19 @@ class ECPController extends Controller
 			]
 		);
 
-		$memberExists = PA_Candidate::where('party_symbol_number', $request->party_symbol_number)
+		$memberExists =
+			PA_Candidate::where('party_symbol_number', $request->party_symbol_number)
 			->where('constituency_number', $request->constituency_number)
 			->first();
 
-
+		if ($memberExists != null) {
+			return view('ecp.error_page', [
+				'error_title' => 'Candidate Already Exists',
+				'error_message' => 'Candidate ' . $request->name .
+					' with CNIC ' . $request->cnic  .
+					' already exists in PA Constituency ' .  $request->constituency_number,
+			]);
+		}
 
 
 		PA_Candidate::create([

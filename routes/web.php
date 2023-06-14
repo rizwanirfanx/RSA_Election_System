@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoterController;
 use App\Http\Controllers\VotingPageController;
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\EnsureElectionIsInProgress;
 use App\Http\Middleware\EnsureNAVoteNotCasted;
 use App\Http\Middleware\EnsurePAVoteNotCasted;
 use App\Http\Middleware\EnsureUserIsECPAdmin;
@@ -81,11 +82,12 @@ Route::middleware([Authenticate::class])->group(function () {
 });
 Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('admin')->group(function () {
 
+	Route::middleware([EnsureElectionIsInProgress::class])->group(function () {
+	});
 
 	Route::get('/dashboard', function () {
 		return view('admin_panel_home');
 	});
-
 	Route::get('/upload_candidates', function () {
 		return view('ecp.upload_candidates');
 	});
@@ -114,11 +116,11 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 
 	Route::post('/add_na_candidate', [ECPController::class, 'addNACandidate']);
 
-	Route::get('/add_na_seat' , [ECPController::class, 'displayAddNASeatPage']);
+	Route::get('/add_na_seat', [ECPController::class, 'displayAddNASeatPage']);
 
-	Route::post('/add_na_seat' , [ECPController::class, 'addNASeat']);
+	Route::post('/add_na_seat', [ECPController::class, 'addNASeat']);
 
-	Route::get('/display_na_seats' , [ECPController::class, 'displayNASeats']);
+	Route::get('/display_na_seats', [ECPController::class, 'displayNASeats']);
 	//
 	// PA Routes
 	//
@@ -126,7 +128,9 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 
 	Route::post('/add_pa_candidate', [ECPController::class, 'addPACandidate']);
 
-	Route::get('/pa_candidates', [ECPController::class, 'displayPACandidates']);
+	Route::middleware([EnsurePAVoteNotCasted::class])->group(function () {
+		Route::get('/pa_candidates', [ECPController::class, 'displayPACandidates']);
+	});
 
 	Route::get('/add_pa_seat', [ECPController::class, 'displayAddPASeatPage']);
 
