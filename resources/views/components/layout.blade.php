@@ -15,16 +15,18 @@
                 </a>
             </div>
             <div class="my-5"></div>
-						<ol>
-						</ol>
-            <x-nav-components.nav-button title="Add NA Candidate" link="/admin/add_na_candidate" icon="fa-person" />
-            <x-nav-components.nav-button title="Display NA Candidates" link="/admin/na_candidates" icon="fa-users" />
-            <x-nav-components.nav-button title="Add NA Seat" link="/admin/add_na_seat" icon="fa-chair" />
-            <x-nav-components.nav-button title="Display NA Seats" link="/admin/display_na_seats" icon="fa-eye" />
-            <x-nav-components.nav-button title="Add PA Candidate" link="/admin/add_pa_candidate" icon="fa-person" />
-            <x-nav-components.nav-button title="Display PA Candidates" link="/admin/pa_candidates" icon="fa-users" />
-            <x-nav-components.nav-button title="Add PA Seat" link="/admin/add_pa_seat" icon="fa-chair" />
-            <x-nav-components.nav-button title="Display PA Seats" link="/admin/display_pa_seats" icon="fa-eye" />
+            <x-nav-components.nav-button rexParent="national_assembly" title="National Assembly" link="#"
+                icon="fa-democrat" />
+            <x-nav-components.nav-button rexChild="national_assembly-child" class="bg-red-700" title="Add NA Candidate" link="/admin/add_na_candidate"
+                icon="fa-person" />
+            <x-nav-components.nav-button rexChild="national_assembly-child" title="Display NA Candidates" link="/admin/na_candidates" icon="fa-users" />
+            <x-nav-components.nav-button rexChild="national_assembly-child" title="Add NA Seat" link="/admin/add_na_seat" icon="fa-chair" />
+            <x-nav-components.nav-button rexChild="national_assembly-child" title="Display NA Seats" link="/admin/display_na_seats" icon="fa-eye" />
+            <x-nav-components.nav-button rexParent="provincial_assembly" title="Provincial Assembly" link="#" icon="fa-person" />
+            <x-nav-components.nav-button rexChild="provincial_assembly-child" title="Add PA Candidate" link="/admin/add_pa_candidate" icon="fa-person" />
+            <x-nav-components.nav-button rexChild="provincial_assembly-child" title="Display PA Candidates" link="/admin/pa_candidates" icon="fa-users" />
+            <x-nav-components.nav-button  rexChild="provincial_assembly-child" title="Add PA Seat" link="/admin/add_pa_seat" icon="fa-chair" />
+            <x-nav-components.nav-button rexChild="provincial_assembly-child" title="Display PA Seats" link="/admin/display_pa_seats" icon="fa-eye" />
             <x-nav-components.nav-button title="Display Parties" link="/admin/parties" icon="fa-landmark" />
             <x-nav-components.nav-button title="Add NADRA Verification Details"
                 link="/admin/add_nadra_verification_details" icon="fa-landmark" />
@@ -50,8 +52,27 @@
         </div>
     </section>
 </body>
+{{ $script ?? '' }}
 <script>
-	
+    console.log('Hello World');
+    let parent = document.querySelectorAll('[data-rex-parent]')
+
+    let child = (document.querySelector('[data-rex-child]'))
+
+
+    let parents = [...parent]
+
+
+
+    parents.forEach((parent) => {
+        parent.addEventListener('click', (e) => {
+            let parentPrefix = parent.dataset.rexParent
+            let children = (document.querySelectorAll(`[data-rex-child=${parentPrefix}-child`))
+            children.forEach(child => {
+                child.classList.toggle('hidden')
+            })
+        })
+    })
 </script>
 
 </html>

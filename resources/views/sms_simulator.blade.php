@@ -67,6 +67,22 @@
                     </div>
                 </div>
             </div>
+            <div class="chat-message">
+                <div class="flex items-end justify-end">
+                    <div class="flex flex-col space-y-2 text-xs max-w-xs mx-2 items-end">
+                        <div>
+                            <span
+                                class="px-4 py-2 rounded-lg inline-block rounded-br-none bg-blue-600 text-white text-sm">LINUX
+                                is the best & Your Voting Pass is $FJAKDFJfjkf450149131
+                            </span>
+                        </div>
+                    </div>
+                    <div class="bg-green-700 p-2 rounded-full">
+                        <img src="{{ asset('images/gov_white_logo.png') }}" alt="My profile"
+                            class="w-6 h-6 rounded-full order-2  ">
+                    </div>
+                </div>
+            </div>
             <div class="border-t-2 border-gray-200 px-4 pt-4 mb-2 sm:mb-0">
                 <div class="relative flex">
                     <span class="absolute inset-y-0 flex items-center">

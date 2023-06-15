@@ -15,7 +15,9 @@ class NavButton extends Component
 		public string $title,
 		public string $link,
 		// Font Awesome Icon
-		public string $icon
+		public string $icon,
+		public string $rexParent = '',
+		public string $rexChild = '',
 	) {
 		//
 	}

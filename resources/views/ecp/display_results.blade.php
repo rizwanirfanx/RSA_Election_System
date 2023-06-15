@@ -19,13 +19,13 @@
                 @foreach ($results as $result)
                     <tr class="bg-white border-b ">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                            {{ $result->na_constituency_number}}
+                            {{ $result->na_constituency_number }}
                         </th>
                         <td class="px-6 py-4">
-                            {{$result->winner_name}}
+                            {{ $result->winner_name }}
                         </td>
                         <td class="px-6 py-4">
-                            {{$result->party_symbol_number}}
+                            {{ $result->party_symbol_number }}
                         </td>
                     </tr>
                 @endforeach
@@ -51,18 +51,23 @@
                 @foreach ($pa_results as $result)
                     <tr class="bg-white border-b ">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                            {{ $result->pa_code}}
+                            {{ $result->pa_code }}
                         </th>
                         <td class="px-6 py-4">
-                            {{$result->winner_name}}
+                            {{ $result->winner_name }}
                         </td>
                         <td class="px-6 py-4">
-                            {{$result->party_symbol_number}}
+                            {{ $result->party_symbol_number }}
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
+    <x-slot:script>
+        <script>
+            console.log('Hello');
+        </script>
+        </x-slot>
 
 </x-layout>
