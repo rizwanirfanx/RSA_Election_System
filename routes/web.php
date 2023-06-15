@@ -33,18 +33,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 Route::middleware([Authenticate::class, isRegisteredByNADRA::class])->group(function () {
 
-	Route::middleware([EnsureNAVoteNotCasted::class])->group(function () {
 
-
-		Route::get('/candidates', [VotingPageController::class, 'displayVotingPage']);
-	});
+	Route::get('/candidates', [VotingPageController::class, 'displayVotingPage']);
 
 	Route::middleware([EnsurePAVoteNotCasted::class])->group(function () {
 		Route::post('/cast_pa_vote', [VoterController::class, 'castPAVote']);
 	});
 
 
-	Route::get('/pa_candidates', [VotingPageController::class, 'displayPAVotingPage']);
 
 	Route::get('/verify_account', [UserController::class, 'displayVerifyAccountPage']);
 
@@ -95,6 +91,8 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 	Route::get('/settings', function () {
 		return view('ecp.settings');
 	});
+
+	Route::get('/display_results/{na_constituency_number}', [ECPController::class, 'displayIndividualNAResult']);
 
 	Route::post('/set_election_timing', [ECPController::class, 'setElectionTime']);
 

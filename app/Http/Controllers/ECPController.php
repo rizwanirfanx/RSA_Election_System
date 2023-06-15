@@ -7,11 +7,13 @@ use App\Models\NA_Candidates;
 use App\Models\NA_Seat;
 use App\Models\NadraDB;
 use App\Models\NaSeat;
+use App\Models\NAVote;
 use App\Models\PA_Candidate;
 use App\Models\PA_Seat;
 use App\Models\Party;
 use App\Models\User;
 use App\Models\User_Meta;
+use App\Models\Vote;
 use App\Models\VoterPhoneNumber;
 use DateTime;
 use Illuminate\Http\Request;
@@ -264,6 +266,23 @@ class ECPController extends Controller
 		return view('ecp.display_results', [
 			'results' => $results,
 			'pa_results' => $results_of_pa,
+		]);
+	}
+
+	function displayIndividualNAResult(Request $request, $na_constituency_number)
+	{
+		$party_votes = (DB::table('na_votes')
+			->groupBy('candidate_id')
+			->groupBy('na_constituency_number')
+			->groupBy('party_symbol_number')
+			->groupBy('name')
+			->select(
+				DB::raw('count(*) as number_of_votes, candidate_id, name,  na_constituency_number , na_candidates.party_symbol_number')
+			)->where('na_constituency_number', $na_constituency_number)
+			->join('na_candidates', 'candidate_id', 'na_candidates.id')->orderByDesc('number_of_votes')
+			->get());
+		return view('ecp.na_constituency_result_details', [
+			'party_votes' => $party_votes,
 		]);
 	}
 

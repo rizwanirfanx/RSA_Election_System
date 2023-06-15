@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\MessageBag;
 
 class UserController extends Controller
 {
@@ -22,6 +23,16 @@ class UserController extends Controller
 			'phone_number' => 'required|min:9|max:14|unique:users',
 
 		]);
+
+		$voter_phone_numbers = (VoterPhoneNumber::where('cnic', $request->cnic)->first());
+
+		//if ($voter_phone_numbers == null) {
+		//	$error = new MessageBag();
+		//	$error->add('phone_number_error', 'No Phone Number Registered on your CNIC');
+		//	return view('registration_page')->withErrors($error);
+		//}
+
+
 
 		$hashedPassword = Hash::make($request->password);
 
@@ -76,7 +87,7 @@ class UserController extends Controller
 		$randNadraData = DB::table('nadra_cnic')->where('mother_name', '!=', $curr_user_mother_name)->inRandomOrder()->limit(3)->get()->all();
 		$mergedNadraData = array_merge($nadraDataOfCurrentUser, $randNadraData);
 		shuffle($mergedNadraData);
-//		ddd(VoterPhoneNumber::where('user_id', Auth::user()->getAuthIdentifier())->get());
+		//		ddd(VoterPhoneNumber::where('user_id', Auth::user()->getAuthIdentifier())->get());
 		return view('verify_account', ['nadra_data' => $mergedNadraData]);
 	}
 	public function displayProfilePage(Request $request)

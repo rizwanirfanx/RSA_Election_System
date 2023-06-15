@@ -19,7 +19,12 @@
                 @foreach ($results as $result)
                     <tr class="bg-white border-b ">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                            {{ $result->na_constituency_number }}
+                            <a
+														href="/admin/display_results/{{ $result->na_constituency_number }}"
+						class="underline text-blue-700 font-bold"
+														>
+                                {{ $result->na_constituency_number }}
+                            </a>
                         </th>
                         <td class="px-6 py-4">
                             {{ $result->winner_name }}
