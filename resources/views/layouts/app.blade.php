@@ -47,10 +47,10 @@
 
                         <div class="flex items-center lg:order-2">
                             <a href="/login"
-                                class="text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none ">Log
+                                class="text-white hover:text-green-900 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none ">Log
                                 in</a>
                             <a href="/register"
-                                class="bg-white text-green-900 hover:bg-blue-700 font-bold focus:ring-4 focus:ring-primary-300 rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none ">Register
+                                class="bg-white text-green-900 hover:bg-green-800 hover:text-white font-bold focus:ring-4 focus:ring-primary-300 rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none ">Register
                                 As Voter</a>
                             <button data-collapse-toggle="mobile-menu-2" type="button"
                                 class="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 "
@@ -94,7 +94,7 @@
         </header>
         @yield('content')
     </div>
-    <footer class="p-4 sm:p-6 mt-6 bg-green-800">
+    <footer class="p-4 sm:p-6 mt-6 bg-green-900">
         <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8" />
         <div class="md:flex md:justify-between">
             <div class="mb-6 md:mb-0">
