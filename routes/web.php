@@ -41,7 +41,6 @@ Route::middleware([Authenticate::class, isRegisteredByNADRA::class])->group(func
 		Route::post('/cast_pa_vote', [VoterController::class, 'castPAVote']);
 
 		Route::get('/cast_pa_vote', [VotingPageController::class, 'displayPAVotingPage']);
-
 	});
 
 
@@ -159,6 +158,13 @@ Route::middleware([Authenticate::class, isRegisteredByNADRA::class,  EnsureVoter
 
 Route::get('/', function () {
 	if (Auth::check()) {
+		$user = Auth::user();
+		$is_admin = $user->meta_data()->where('meta_key', 'user_role')
+			->where('meta_value', 'admin')
+			->first();
+		if($is_admin){
+		return redirect('/admin/dashboard');
+}
 		return redirect('/profile');
 	}
 	return view('welcome');
