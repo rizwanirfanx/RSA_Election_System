@@ -54,7 +54,6 @@
 </body>
 {{ $script ?? '' }}
 <script>
-    console.log('Hello World');
     let parent = document.querySelectorAll('[data-rex-parent]')
 
     let child = (document.querySelector('[data-rex-child]'))

@@ -146,6 +146,7 @@ class ECPController extends Controller
 		$request->validate(
 
 			[
+				'name' => 'required',
 				'cnic' => 'required|unique:App\Models\NA_Candidates',
 				'constituency_number' => 'required',
 				'address' => 'required',
