@@ -2,7 +2,7 @@
 
     <section class="col-span-4 mx-6 bg-gray-100 rounded-lg">
         <div class="form-container shadow-xl px-4 py-6 rounded-md">
-            <h3 class="my-4 font-semibold text-lg">Add Candidate</h3>
+            <h3 class="my-4 font-semibold text-lg">Add Provincial Assembly Constituency</h3>
             <form action="/admin/add_pa_seat" method="POST">
 
                 @if ($errors->any())
@@ -22,9 +22,12 @@
                             for="grid-first-name">
                             Constituency Number
                         </label>
-                        <input
-                            class="appearance-none block w-full bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                            id="grid-first-name" type="text" placeholder="PA-01" name="ps_constituency">
+                        <div class="flex items-center">
+
+                            <input
+                              class="appearance-none bg-gray-200 text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                id="grid-first-name" type="text" placeholder="PA-1" name="ps_constituency">
+                        </div>
                     </div>
                 </div>
                 <div class="flex flex-wrap -mx-3 mb-1">
@@ -50,8 +53,8 @@
 
                 <div class="mt-8">
                     <button type="submit"
-                        class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none ">
-                        Add Candidate</button>
+                        class="text-white bg-green-600 hover:bg-green-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none ">
+                        Add Provincial Assembly Constituency</button>
                 </div>
             </form>
         </div>

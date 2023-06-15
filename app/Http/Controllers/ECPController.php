@@ -441,7 +441,11 @@ class ECPController extends Controller
 				'province' => $request->province,
 			]
 		);
-		return view('ecp.success_page');
+		return view('ecp.success_page' , [
+'title' => 'Provincial Assembly Seat Added!',
+'description' => "Provincial Assembly Seat for Area " . $request->ps_area_name . 
+" has been added succesfully",
+]);
 	}
 	public function displayPASeats()
 	{
