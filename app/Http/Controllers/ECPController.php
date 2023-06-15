@@ -338,7 +338,7 @@ class ECPController extends Controller
 				'phone_number' => 'required|unique:App\Models\VoterPhoneNumber',
 			]
 		);
-		
+
 		$user = NadraDB::create(
 			[
 				'cnic_expiry_date' => $request->cnic_expiry_date,

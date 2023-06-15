@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NadraDB;
 use App\Models\NAVote;
+use App\Models\PA_Candidate;
 use App\Models\PA_Vote;
 use App\Models\User;
 use App\Models\User_Meta;
@@ -24,6 +26,8 @@ class VoterController extends Controller
 
 		return view('voting_page', ['voter_nadra_info' => $voter_nadra_info]);
 	}
+
+
 
 	public function verifyVotingPass(Request $request)
 	{
