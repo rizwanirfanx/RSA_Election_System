@@ -1,7 +1,7 @@
 @if ($rexChild != '')
     <a href="{{ $link }}" data-rex-parent="{{ $rexParent }}" data-rex-child="{{ $rexChild }}"
         class="
-								row flex mt-4 hover:bg-green-600 p-2 rounded-md hover:cursor-pointer mx-1 items-center justify-between
+							hidden	row flex mt-4 hover:bg-green-600 p-2 rounded-md hover:cursor-pointer mx-1 items-center justify-between
 								">
         <div class="ml-8 flex items-center">
 						<i class="fa-solid fa-circle-dot mr-4"></i>
