@@ -21,5 +21,6 @@ class NadraDB extends Model
 		'mother_name',
 		'na_constituency_number',
 		'pa_constituency_number',
+		'name',
 	];
 }

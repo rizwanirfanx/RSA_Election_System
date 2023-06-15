@@ -330,31 +330,29 @@ class ECPController extends Controller
 	{
 		$request->validate(
 			[
-				'cnic' => 'required',
+				'cnic' => 'required|unique:App\Models\NadraDB',
 				'mother_name' => 'required',
 				'cnic_expiry_date' => 'required',
 				'na_constituency_number' => 'required',
 				'pa_constituency_number' => 'required',
-				'phone_number' => 'required',
+				'phone_number' => 'required|unique:App\Models\VoterPhoneNumber',
 			]
 		);
-		$user = (User::where('cnic', $request->cnic)->first());
-		if ($user == null) {
-			ddd("FUCK");
-		}
-		VoterPhoneNumber::create(
-			[
-				'phone_number' => $request->phone_number,
-				'user_id' => $user->id,
-			]
-		);
-		NadraDB::create(
+		
+		$user = NadraDB::create(
 			[
 				'cnic_expiry_date' => $request->cnic_expiry_date,
 				'mother_name' => $request->mother_name,
 				'cnic' => $request->cnic,
 				'na_constituency_number' => $request->na_constituency_number,
 				'pa_constituency_number' => $request->pa_constituency_number,
+				'name' => $request->name,
+			]
+		);
+		VoterPhoneNumber::create(
+			[
+				'phone_number' => $request->phone_number,
+				'cnic' => $user->cnic,
 			]
 		);
 	}
@@ -441,11 +439,11 @@ class ECPController extends Controller
 				'province' => $request->province,
 			]
 		);
-		return view('ecp.success_page' , [
-'title' => 'Provincial Assembly Seat Added!',
-'description' => "Provincial Assembly Seat for Area " . $request->ps_area_name . 
-" has been added succesfully",
-]);
+		return view('ecp.success_page', [
+			'title' => 'Provincial Assembly Seat Added!',
+			'description' => "Provincial Assembly Seat for Area " . $request->ps_area_name .
+				" has been added succesfully",
+		]);
 	}
 	public function displayPASeats()
 	{

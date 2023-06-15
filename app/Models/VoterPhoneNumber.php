@@ -9,5 +9,5 @@ class VoterPhoneNumber extends Model
 {
 	use HasFactory;
 	protected $table = 'voter_phone_numbers';
-	protected $fillable = ['phone_number', 'user_id'];
+	protected $fillable = ['phone_number', 'user_id', 'cnic'];
 }
