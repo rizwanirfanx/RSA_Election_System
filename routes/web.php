@@ -97,7 +97,10 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 
 	Route::get('/display_results/{na_constituency_number}', [ECPController::class, 'displayIndividualNAResult']);
 
+	Route::get('/display_pa_results/{pa_code}', [ECPController::class, 'displayIndividualPAResult']);
+
 	Route::post('/set_election_timing', [ECPController::class, 'setElectionTime']);
+
 
 	Route::post('/upload_candidates', [ECPController::class, 'uploadElectionCandidatesCSV']);
 

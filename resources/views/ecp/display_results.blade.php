@@ -19,10 +19,8 @@
                 @foreach ($results as $result)
                     <tr class="bg-white border-b ">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                            <a
-														href="/admin/display_results/{{ $result->na_constituency_number }}"
-						class="underline text-blue-700 font-bold"
-														>
+                            <a href="/admin/display_results/{{ $result->na_constituency_number }}"
+                                class="underline text-blue-700 font-bold">
                                 {{ $result->na_constituency_number }}
                             </a>
                         </th>
@@ -56,7 +54,10 @@
                 @foreach ($pa_results as $result)
                     <tr class="bg-white border-b ">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
-                            {{ $result->pa_code }}
+                            <a class="underline text-blue-600 font-bold" href="/admin/display_pa_results/{{ $result->pa_code }}">
+
+                                {{ $result->pa_code }}
+                            </a>
                         </th>
                         <td class="px-6 py-4">
                             {{ $result->winner_name }}

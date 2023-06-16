@@ -285,6 +285,22 @@ class ECPController extends Controller
 			'party_votes' => $party_votes,
 		]);
 	}
+	function displayIndividualPAResult(Request $request, $pa_code)
+	{
+		$party_votes = (DB::table('pa_votes')
+			->groupBy('candidate_id')
+			->groupBy('pa_code')
+			->groupBy('party_symbol_number')
+			->groupBy('name')
+			->select(
+				DB::raw('count(*) as number_of_votes, candidate_id, name,  pa_code , pa_candidates.party_symbol_number')
+			)->where('pa_code', $pa_code)
+			->join('pa_candidates', 'candidate_id', 'pa_candidates.id')->orderByDesc('number_of_votes')
+			->get());
+		return view('ecp.na_constituency_result_details', [
+			'party_votes' => $party_votes,
+		]);
+	}
 
 	function displayLoginPage()
 	{
