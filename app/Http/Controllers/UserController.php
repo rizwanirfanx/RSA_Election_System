@@ -67,7 +67,10 @@ class UserController extends Controller
 			$user_meta->meta_key = 'is_verified';
 			$user_meta->meta_value = true;
 			$user_meta->save();
-			return redirect('/verification_successful');
+			return view('verification_successful', [
+				'title' => 'Verificaiton Successful',
+				'description' => 'Your Account has been successfully verified, now you can cast your vote for your favorite canddiate',
+			]);
 		} else {
 			$user_meta->meta_key = 'account_blocked';
 			$user_meta->meta_value = true;

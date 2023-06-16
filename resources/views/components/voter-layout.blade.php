@@ -8,7 +8,7 @@
 
 <body>
     <section class="grid grid-cols-10">
-        <div class="sidebar col-span-2 dark:bg-slate-900 text-white px-3 py-2 min-h-screen">
+        <div class="sidebar col-span-2 dark:bg-green-900 text-white px-3 py-2 min-h-screen">
             <div class="flex items-center">
                 <img alt="logo" src="{{ asset('images/gov_white_logo.png') }}" width="100px">
             </div>

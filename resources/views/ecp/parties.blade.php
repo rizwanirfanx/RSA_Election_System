@@ -13,6 +13,9 @@
                     <th scope="col" class="px-6 py-3">
                         Party Symbol Number
                     </th>
+                    <th scope="col" class="px-6 py-3">
+                        Action
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -26,6 +29,12 @@
                         </td>
                         <td class="px-6 py-4">
                             {{ $party->p_symbol_number }}
+                        </td>
+                        <td class="px-6 py-4">
+
+                            <i class="fa-solid fa-trash text-red-800">
+															<a href="/admin/"></a>
+														</i>
                         </td>
                     </tr>
                 @endforeach

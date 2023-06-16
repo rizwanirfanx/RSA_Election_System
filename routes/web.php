@@ -4,9 +4,11 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ECPController;
 use App\Http\Controllers\NACandidateController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VoteController;
 use App\Http\Controllers\VoterController;
 use App\Http\Controllers\VotingPageController;
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\EnsureAccountIsVerified;
 use App\Http\Middleware\EnsureElectionIsInProgress;
 use App\Http\Middleware\EnsureNAVoteNotCasted;
 use App\Http\Middleware\EnsurePAVoteNotCasted;
@@ -44,6 +46,19 @@ Route::middleware([Authenticate::class, isRegisteredByNADRA::class])->group(func
 		Route::get('/cast_pa_vote', [VotingPageController::class, 'displayPAVotingPage']);
 	});
 
+	Route::middleware([EnsureAccountIsVerified::class])->group(function () {
+		Route::get('/generate_voting_pass', function () {
+			$voting_pass =  Hash::make(Auth::user()->email_address);
+			$new_user_meta = new User_Meta;
+			$new_user_meta->meta_key = 'voting_pass';
+			$new_user_meta->meta_value = $voting_pass;
+			$new_user_meta->user_id = Auth::user()->getAuthIdentifier();
+			if ($new_user_meta->save()) {
+				return redirect('/profile');
+			}
+			return response()->json(['message' => 'Failed to save the model'], 500);
+		});
+	});
 
 
 	Route::get('/verify_account', [UserController::class, 'displayVerifyAccountPage']);
@@ -58,17 +73,6 @@ Route::middleware([Authenticate::class, isRegisteredByNADRA::class])->group(func
 
 	Route::get('/verification_successful', function () {
 		return view('verification_successful');
-	});
-	Route::get('/generate_voting_pass', function () {
-		$voting_pass =  Hash::make(Auth::user()->email_address);
-		$new_user_meta = new User_Meta;
-		$new_user_meta->meta_key = 'voting_pass';
-		$new_user_meta->meta_value = $voting_pass;
-		$new_user_meta->user_id = Auth::user()->getAuthIdentifier();
-		if ($new_user_meta->save()) {
-			return redirect('/profile');
-		}
-		return response()->json(['message' => 'Failed to save the model'], 500);
 	});
 });
 
@@ -154,6 +158,10 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 	Route::get('/add_nadra_verification_details', [ECPController::class,  'displayNADRAPage']);
 
 	Route::post('/add_nadra_verification_details', [ECPController::class,  'addNADRADetails']);
+
+	Route::get('/upload_dummy_voters', [VoteController::class,  'create']);
+
+	Route::post('/upload_dummy_voters', [VoteController::class,  'store']);
 });
 
 Route::middleware([Authenticate::class, isRegisteredByNADRA::class,  EnsureVoterPassVerified::class])->group(function () {
@@ -171,9 +179,9 @@ Route::get('/', function () {
 		$is_admin = $user->meta_data()->where('meta_key', 'user_role')
 			->where('meta_value', 'admin')
 			->first();
-		if($is_admin){
-		return redirect('/admin/dashboard');
-}
+		if ($is_admin) {
+			return redirect('/admin/dashboard');
+		}
 		return redirect('/profile');
 	}
 	return view('welcome');
