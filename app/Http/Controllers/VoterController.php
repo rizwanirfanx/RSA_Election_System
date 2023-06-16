@@ -52,7 +52,16 @@ class VoterController extends Controller
 			Auth::user()->meta_data()->save(
 				$voting_pass_verified
 			);
-			return view('verification_successful');
+			return view('verification_successful', [
+				'title' => 'Voter Pass Verified Successfully',
+				'description' => 'Congratulations, ' . Auth::user()->name .
+					' you voter pass has been successfully verified, Now you can vote for your favorite candidate!',
+			]);
+		} else {
+			return view('error_page', [
+				'error_title' => 'Invalid Voting Pass',
+				'error_message' => "Try Again, If it doesn't work then Re-generate your voting pass"
+			]);
 		}
 		redirect('/voter-verification');
 	}

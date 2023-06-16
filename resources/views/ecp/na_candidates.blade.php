@@ -22,6 +22,9 @@
                     <th scope="col" class="px-6 py-3">
                         Party Symbol Number
                     </th>
+                    <th scope="col" class="px-6 py-3">
+                        Edit
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -44,6 +47,12 @@
                         </td>
                         <td class="px-6 py-4">
                             {{ $candidate->party_symbol_number }}
+                        </td>
+                        <td class="px-6 py-4">
+                            <form action="/admin/na_candidate/{{ $candidate->id }}">
+                                @method('put')
+                                <input type="submit" value="Edit" class="text-blue-600 " />
+                            </form>
                         </td>
                     </tr>
                 @endforeach

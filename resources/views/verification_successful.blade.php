@@ -1,6 +1,4 @@
 <x-voter-layout>
-
-    <!-- component -->
     <div class="bg-gray-100 h-screen">
         <div class="bg-white p-6  md:mx-auto">
             <svg viewBox="0 0 24 24" class="text-green-600 w-16 h-16 mx-auto my-6">
@@ -9,12 +7,19 @@
                 </path>
             </svg>
             <div class="text-center">
-                <h3 class="md:text-2xl text-base text-gray-900 font-semibold text-center">Verification Done!</h3>
-                <p class="text-gray-600 my-2">Now you can vote for your Favorite Candidate.</p>
+                <h3 class="md:text-2xl text-base text-gray-900 font-semibold text-center">{{ $title }}</h3>
+                <p class="text-gray-600 my-2">{{ $description }}</p>
                 <div class="py-10 text-center">
-                    <a href="/" class="px-12 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3">
-                        GO BACK
+                    <a href="/"
+                        class="px-12 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 mr-2">
+                        Go to Dashboard
                     </a>
+                    <a href="{{ url()->previous() }}"
+                        class="px-12 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3">
+                        Back
+                    </a>
+                </div>
+                <div class="py-10 text-center">
                 </div>
             </div>
         </div>

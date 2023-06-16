@@ -49,8 +49,7 @@ Route::middleware([Authenticate::class, isRegisteredByNADRA::class])->group(func
 
 	Route::post('/verify_account', [UserController::class, 'verify_account']);
 
-	Route::get('/voter-verification', function () {
-
+	Route::get('/verify_voting_pass', function () {
 		return view('voter_pass_verification');
 	});
 
@@ -119,6 +118,8 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 	Route::get('/add_na_candidate', [ECPController::class, 'displayAddCandidatePage']);
 
 	Route::post('/add_na_candidate', [ECPController::class, 'addNACandidate']);
+
+	Route::delete('/na_candidate/{id}', [ECPController::class, 'deleteNACandidate']);
 
 	Route::get('/add_na_seat', [ECPController::class, 'displayAddNASeatPage']);
 
