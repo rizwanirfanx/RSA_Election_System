@@ -5,10 +5,11 @@
 
 @section('content')
 
-    <div 
-		style="background-image: url({{ asset('images/hero.webp') }});"
-		class="bg-no-repeat bg-cover py-5"
-		>
+    <div class="h-screen bg-contain bg-no-repeat "
+        style="background-image: url({{ asset('images/hero_section_image.jpg') }});">
+
+    </div>
+    <div style="background-image: url({{ asset('images/hero.webp') }});" class="bg-no-repeat bg-cover py-5">
 
         <div class="bg-gray-200 opacity-90 w-4/6 mx-auto mt-5 py-40 px-6 rounded flex flex-col  items-center">
             <h1 class="my-3">Welcome to Online Election System for Pakistan</h1>
@@ -20,8 +21,8 @@
 
                 <a href="/register" class="svg_container text-center px-6 py-10 rounded-full mx-3">
 
-                    <svg class="fill-green-900 m-auto" xmlns="http://www.w3.org/2000/svg" height="48" viewBox="0 96 960 960"
-                        width="48">
+                    <svg class="fill-green-900 m-auto" xmlns="http://www.w3.org/2000/svg" height="48"
+                        viewBox="0 96 960 960" width="48">
                         <path
                             d="M226 896q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm0-254q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm0-254q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm254 254q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47l-66 66Zm0-254q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm-40 508v-65l243-243 65 65-243 243h-65Zm294-508q-28 0-47-19t-19-47q0-28 19-47t47-19q28 0 47 19t19 47q0 28-19 47t-47 19Zm40 239-65-65 25-25q8-8 20-8.5t20 7.5l26 26q8 8 7.5 20t-8.5 20l-25 25Z" />
                     </svg>

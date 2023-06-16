@@ -41,7 +41,7 @@
         @endif
         <form method="POST" action="/register" class="flex flex-col w-5/6 ">
             @csrf
-            <label for="name">Full Name</label>
+            <label for="name" >Full Name</label>
             <input name="name" value="{{ old('name') }}" id="name" type="text" placeholder="Full Name"
                 class="px-3 py-2 my-3">
             <label for="cnic">CNIC With Dashes</label>

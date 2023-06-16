@@ -6,14 +6,13 @@
 </head>
 
 <body>
+	<img src="{{asset('images/header.png')}}"/>
     <div class="">
         <header class="w-full">
             <nav class="border-gray-200 px-4 lg:px-6 py-2.5 w-full">
                 <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
                     <a href="/" class="flex items-center">
-                        <img fit height="600px" src="{{ asset('images/gov_white_logo.png') }}" class="mr-3 h-6 sm:h-9"
-                            alt="RSA Logo" />
-                        <span class="self-center text-xl font-semibold whitespace-nowrap ">RSA</span>
+                        <span class="self-center text-3xl font-semibold whitespace-nowrap ">RSA</span>
                     </a>
                     @auth
 
