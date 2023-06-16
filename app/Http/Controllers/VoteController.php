@@ -48,23 +48,23 @@ class VoteController extends Controller
 					$mysqlDate = $date->format('Y-m-d H:i:s');
 
 					echo "<p>" . $data[0] . "</p>";
-					//					NadraDB::create(
-					//						[
-					//							'cnic' => $data[0],
-					//							'mother_name' => $data[4],
-					//							'cnic_expiry_date' => $mysqlDate,
-					//							'na_constituency_number' => $data[6],
-					//							'pa_constituency_number' => $data[7],
-					//							'name' => $data[3],
-					//						],
-					//					);
-					//					User::create([
-					//						'cnic' => $data[0],
-					//						'email' => $data[1],
-					//						'phone_number' => $data[2],
-					//						'name' => $data[3],
-					//						'password' => Hash::make($data[8]),
-					//					]);
+					NadraDB::create(
+						[
+							'cnic' => $data[0],
+							'mother_name' => $data[4],
+							'cnic_expiry_date' => $mysqlDate,
+							'na_constituency_number' => $data[6],
+							'pa_constituency_number' => $data[7],
+							'name' => $data[3],
+						],
+					);
+					User::create([
+						'cnic' => $data[0],
+						'email' => $data[1],
+						'phone_number' => $data[2],
+						'name' => $data[3],
+						'password' => Hash::make($data[8]),
+					]);
 				}
 				$row++;
 			}
