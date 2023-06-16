@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ECPController;
+use App\Http\Controllers\NACandidateController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoterController;
 use App\Http\Controllers\VotingPageController;
@@ -120,6 +121,10 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 	Route::post('/add_na_candidate', [ECPController::class, 'addNACandidate']);
 
 	Route::delete('/na_candidate/{id}', [ECPController::class, 'deleteNACandidate']);
+
+	Route::put('/na_candidate/{id}', [NACandidateController::class, 'update']);
+
+	Route::get('/na_candidate/{id}/edit', [NACandidateController::class, 'edit']);
 
 	Route::get('/add_na_seat', [ECPController::class, 'displayAddNASeatPage']);
 

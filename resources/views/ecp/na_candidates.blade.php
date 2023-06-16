@@ -49,9 +49,10 @@
                             {{ $candidate->party_symbol_number }}
                         </td>
                         <td class="px-6 py-4">
-                            <form action="/admin/na_candidate/{{ $candidate->id }}">
-                                @method('put')
-                                <input type="submit" value="Edit" class="text-blue-600 " />
+                            <form method="get" class="hover:cursor-pointer"
+                                action="/admin/na_candidate/{{ $candidate->id }}/edit">
+                                @csrf
+                                <input type="submit" value="Edit" class="text-blue-600 hover:cursor-pointer" />
                             </form>
                         </td>
                     </tr>

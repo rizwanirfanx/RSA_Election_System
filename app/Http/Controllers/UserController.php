@@ -26,11 +26,11 @@ class UserController extends Controller
 
 		$voter_phone_numbers = (VoterPhoneNumber::where('cnic', $request->cnic)->first());
 
-		//if ($voter_phone_numbers == null) {
-		//	$error = new MessageBag();
-		//	$error->add('phone_number_error', 'No Phone Number Registered on your CNIC');
-		//	return view('registration_page')->withErrors($error);
-		//}
+		//		if ($voter_phone_numbers == null) {
+		//			$error = new MessageBag();
+		//			$error->add('phone_number_error', 'No Phone Number Registered on your CNIC');
+		//			return view('registration_page')->withErrors($error);
+		//		}
 
 
 

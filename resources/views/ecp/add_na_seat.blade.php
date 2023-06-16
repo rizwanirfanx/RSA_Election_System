@@ -50,8 +50,8 @@
 
                 <div class="mt-8">
                     <button type="submit"
-                        class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none ">
-                        Add NA Seat</button>
+                        class="text-white bg-green-600 hover:bg-blue-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none ">
+                        Add National Assembly Seat</button>
                 </div>
             </form>
         </div>

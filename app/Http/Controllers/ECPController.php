@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class ECPController extends Controller
 {
@@ -163,11 +164,18 @@ class ECPController extends Controller
 			->where('constituency_number', $constituency)
 			->first();
 		if ($candidateExists != null) {
-			return view(
-				'ecp.error_page',
+			//			return view(
+			//				'ecp.error_page',
+			//				[
+			//					'error_title' => 'Existing Candidate',
+			//					'error_message' => 'Candidate from this party Already Exists',
+			//				]
+			//			);
+
+			return Redirect::back()->withErrors(
 				[
-					'error_title' => 'Existing Candidate',
-					'error_message' => 'Candidate from this party Already Exists',
+					'existing_candidate' => 'Candidate Already Exists for ' . $constituency
+						. ' from Party ' . $party,
 				]
 			);
 		}
