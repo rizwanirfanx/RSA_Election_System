@@ -19,7 +19,6 @@
             <x-nav-components.nav-button title="Verify Voting Pass" link="/verify_voting_pass" icon="fa-check" />
             <x-nav-components.nav-button title="SMS Simulator" link="/sms_simulator" icon="fa-comment" />
             <x-nav-components.nav-button title="Logout" link="/logout" icon="fa-arrow-right-from-bracket" />
-
         </div>
         <div class="bg-gray-300 col-span-8 ">
             <nav class="bg-gray-100 p-4">

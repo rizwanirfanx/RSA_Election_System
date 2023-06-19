@@ -10,18 +10,14 @@ use App\Http\Controllers\VotingPageController;
 use App\Http\Middleware\Authenticate;
 use App\Http\Middleware\EnsureAccountIsVerified;
 use App\Http\Middleware\EnsureElectionIsInProgress;
-use App\Http\Middleware\EnsureNAVoteNotCasted;
 use App\Http\Middleware\EnsurePAVoteNotCasted;
 use App\Http\Middleware\EnsureUserIsECPAdmin;
 use App\Http\Middleware\EnsureVoterPassVerified;
 use App\Http\Middleware\isRegisteredByNADRA;
-use App\Models\User;
 use App\Models\User_Meta;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
-use Symfony\Component\HttpFoundation\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -129,6 +125,8 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 	Route::put('/na_candidate/{id}', [NACandidateController::class, 'update']);
 
 	Route::get('/na_candidate/{id}/edit', [NACandidateController::class, 'edit']);
+
+	Route::put('/na_candidate/{id}', [NACandidateController::class, 'update']);
 
 	Route::get('/add_na_seat', [ECPController::class, 'displayAddNASeatPage']);
 

@@ -4,8 +4,7 @@
 							hidden	row flex mt-4 hover:bg-green-600 p-2 rounded-md hover:cursor-pointer mx-1 items-center justify-between
 								">
         <div class="ml-8 flex items-center">
-						<i class="fa-solid fa-circle-dot mr-4"></i>
-            <h3 class="text-sm text-center">{{ $title }}</h3>
+            <h3 class="text-sm text-center ml-4">{{ $title }}</h3>
         </div>
     </a>
 @else
