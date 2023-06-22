@@ -39,12 +39,11 @@ Route::middleware([Authenticate::class, isRegisteredByNADRA::class])->group(func
 
 	Route::get('/candidates', [VotingPageController::class, 'displayVotingPage']);
 
-	Route::middleware([EnsurePAVoteNotCasted::class, EnsureElectionIsInProgress::class])->group(function () {
+	Route::middleware([EnsurePAVoteNotCasted::class, EnsureElectionIsInProgress::class, EnsureVoterPassVerified::class])->group(function () {
 
 		Route::post('/cast_pa_vote', [VoterController::class, 'castPAVote']);
-
-		Route::get('/cast_pa_vote', [VotingPageController::class, 'displayPAVotingPage']);
 	});
+	Route::get('/cast_pa_vote', [VotingPageController::class, 'displayPAVotingPage']);
 
 	Route::middleware([EnsureAccountIsVerified::class])->group(function () {
 		Route::get('/generate_voting_pass', function () {
@@ -175,7 +174,7 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 	Route::post('/upload_dummy_voters', [VoteController::class,  'store']);
 });
 
-Route::middleware([Authenticate::class, isRegisteredByNADRA::class,  EnsureVoterPassVerified::class])->group(function () {
+Route::middleware([Authenticate::class, isRegisteredByNADRA::class,  EnsureVoterPassVerified::class, EnsureElectionIsInProgress::class])->group(function () {
 
 	Route::get('/vote', [VoterController::class, 'displayVotePage']);
 
