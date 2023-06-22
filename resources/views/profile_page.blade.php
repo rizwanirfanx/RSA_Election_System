@@ -28,7 +28,6 @@
                 @else
                     <x-info-table.table-row key="Voting Pass" :value="$voter_pass" />
                 @endif
-
             </tbody>
         </table>
     </div>

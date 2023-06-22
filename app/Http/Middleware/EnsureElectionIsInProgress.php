@@ -18,6 +18,17 @@ class EnsureElectionIsInProgress
 	{
 		$election_starting_time = ElectionMeta::where('meta_key', 'election_starting_time')
 			->first();
+		if ($election_starting_time == null) {
+			return response(
+				view(
+					'error_page',
+					[
+						'error_title' => 'Election Time Has Not Been Announced yet',
+						'error_message' => 'Election Date Has Not Yet Been Finalized by ECP, You Will be Informed Via SMS or Email When the Voting Start',
+					],
+				),
+			);
+		}
 		ddd($election_starting_time);
 		return $next($request);
 	}

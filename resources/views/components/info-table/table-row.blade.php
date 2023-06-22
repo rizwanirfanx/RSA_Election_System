@@ -8,11 +8,9 @@
                             @csrf
                             <input class="text-red-600 underline font-bold hover:cursor-pointer" type="submit"
                                 value="{{ $value }}" />
-                            <i class="fa-solid fa-pencil"></i>
                         </form>
                     @else
                         {{ $value }}
-                        <i class="ml-3 fa-solid fa-pencil hover:text-red-500"></i>
                     @endif
                 </td>
             </tr>

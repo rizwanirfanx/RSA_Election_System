@@ -7,6 +7,7 @@
 </head>
 
 <body>
+	
     <section class="grid grid-cols-10">
         <div class="sidebar col-span-2 dark:bg-green-900 text-white px-3 py-2 min-h-screen">
             <div class="flex items-center">
@@ -35,8 +36,6 @@
                 {{ $slot }}
             </div>
         </div>
-	<div class="mb-6">
-	</div>
     </section>
 </body>
 {{ $scripts ?? '' }} 

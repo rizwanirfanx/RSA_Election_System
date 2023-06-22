@@ -35,7 +35,7 @@ Route::middleware([Authenticate::class, isRegisteredByNADRA::class])->group(func
 
 	Route::get('/candidates', [VotingPageController::class, 'displayVotingPage']);
 
-	Route::middleware([EnsurePAVoteNotCasted::class])->group(function () {
+	Route::middleware([EnsurePAVoteNotCasted::class, EnsureElectionIsInProgress::class])->group(function () {
 
 		Route::post('/cast_pa_vote', [VoterController::class, 'castPAVote']);
 
@@ -87,6 +87,9 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 	Route::get('/dashboard', function () {
 		return view('admin_panel_home');
 	});
+
+	Route::get('/voters' , [VoterController::class, 'index']);
+
 	Route::get('/upload_candidates', function () {
 		return view('ecp.upload_candidates');
 	});

@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\NA_Candidates;
 use App\Models\NadraDB;
 use App\Models\NAVote;
 use App\Models\PA_Candidate;
 use App\Models\PA_Vote;
 use App\Models\User;
 use App\Models\User_Meta;
+use App\Models\Vote;
+use App\Models\Voter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 class VoterController extends Controller
@@ -40,7 +44,11 @@ class VoterController extends Controller
 
 		$user_provided_vp = $request->all()["voter_pass"];
 
-		if ($user_provided_vp == $voting_pass) {
+		if (
+			$user_provided_vp == $voting_pass
+			&&
+			Auth::user()->cnic == $request->cnic
+		) {
 
 			$voting_pass_verified = new User_Meta(
 				[
@@ -81,6 +89,15 @@ class VoterController extends Controller
 			'candidate_id' => $request_body["candidate_id"],
 			'na_constituency_number' => $request_body["candidate_constituency"],
 		]);
+		$candidate = NA_Candidates::find($request_body["candidate_id"]);
+		return view(
+			'verification_successful',
+			[
+				'title' => 'NA Vote Casted Successfully',
+				'description' => 'You successfully casted your vote for ' .
+					$candidate->name .  ', constituency, ' . $request_body['candidate_constituency']
+			]
+		);
 	}
 
 	public function castPAVote(Request $request)
@@ -95,5 +112,70 @@ class VoterController extends Controller
 			'candidate_id' => $request_body["candidate_id"],
 			'pa_code' => $request_body["pa_code"],
 		]);
+	}
+	public function index()
+	{
+		$voters = User::all();
+		foreach ($voters as $voter) {
+			ddd($voter->meta_data()->where('user_id', $voter->id)
+				->where('meta_key', 'is_verified')
+				->orWhere('meta_key', 'user_role')->get());
+		}
+		return view(
+			'ecp.display_voters',
+			[
+				'voters' =>  Voter::all(),
+
+			]
+
+		);
+	}
+
+	/**
+	 * Show the form for creating a new resource.
+	 */
+	public function create()
+	{
+		//
+	}
+
+	/**
+	 * Store a newly created resource in storage.
+	 */
+	public function store(Request $request)
+	{
+		//
+	}
+
+	/**
+	 * Display the specified resource.
+	 */
+	public function show(string $id)
+	{
+		//
+	}
+
+	/**
+	 * Show the form for editing the specified resource.
+	 */
+	public function edit(string $id)
+	{
+		//
+	}
+
+	/**
+	 * Update the specified resource in storage.
+	 */
+	public function update(Request $request, string $id)
+	{
+		//
+	}
+
+	/**
+	 * Remove the specified resource from storage.
+	 */
+	public function destroy(string $id)
+	{
+		//
 	}
 }

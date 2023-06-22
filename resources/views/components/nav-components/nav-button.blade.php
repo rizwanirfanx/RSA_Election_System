@@ -16,6 +16,8 @@
             <i class="fa-solid {{ $icon }} w-10"></i>
             <h3 class="text-sm text-center">{{ $title }}</h3>
         </div>
-        <i class="fa-solid fa-chevron-right fa-sm"></i>
+        @if ($rexParent != '')
+            <i class="fa-solid fa-chevron-down fa-sm"></i>
+        @endif
     </a>
 @endif
