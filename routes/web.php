@@ -234,4 +234,5 @@ Route::get('/test-email', function () {
 
 Route::post('/test-email', function () {
 	Mail::to('rizwanirfanx@gmail.com')->send(new TestMails());
+	return 'Email Sent Successfully';
 });
