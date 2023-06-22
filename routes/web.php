@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ECPController;
+use App\Http\Controllers\ElectionsMetaController;
 use App\Http\Controllers\NACandidateController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VoteController;
@@ -102,7 +103,7 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 
 	Route::get('/display_pa_results/{pa_code}', [ECPController::class, 'displayIndividualPAResult']);
 
-	Route::post('/set_election_timing', [ECPController::class, 'setElectionTime']);
+	Route::post('/set_election_timing', [ElectionsMetaController::class, 'store']);
 
 
 	Route::post('/upload_candidates', [ECPController::class, 'uploadElectionCandidatesCSV']);

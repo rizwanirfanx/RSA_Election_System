@@ -24,35 +24,6 @@ use Illuminate\Support\Facades\Redirect;
 
 class ECPController extends Controller
 {
-	public function setElectionTime(Request $request)
-	{
-		$starting_time = DateTime::createFromFormat("Y-m-d", $request->election_starting_time);
-		$ending_time = DateTime::createFromFormat("Y-m-d", $request->election_ending_time);
-		$diff = $starting_time->diff($ending_time);
-		if ($diff->invert === 0) {
-			ElectionMeta::create([
-				'meta_key' => 'starting_time',
-				'meta_value' => $starting_time,
-			]);
-			ElectionMeta::create([
-				'meta_key' => 'ending_time',
-				'meta_value' => $ending_time,
-			]);
-			return view(
-				'ecp.success_page',
-				[
-					'title' => 'Election Timing Has been set successfully',
-					'description' => "Election Timing has been set successfully, The Elections will start on "
-						. $request->election_starting_time .
-						" & Elections will end on " . $request->election_ending_time,
-				]
-			);
-		}
-		return view('ecp.error_page', [
-			'error_title' => 'Invalid Timing',
-			'error_message' => "The Election cannot be Stopped before it starts!",
-		]);
-	}
 
 	//
 	public function uploadElectionCandidatesCSV(Request $request)

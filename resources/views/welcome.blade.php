@@ -9,6 +9,8 @@
         style="background-image: url({{ asset('images/hero_section_image.jpg') }});">
 
     </div>
+		<x-cta_section/>
+    <x-team />
     <div style="background-image: url({{ asset('images/hero.webp') }});" class="bg-no-repeat bg-cover py-5">
 
         <div class="bg-gray-200 opacity-90 w-4/6 mx-auto mt-5 py-40 px-6 rounded flex flex-col  items-center">
