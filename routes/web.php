@@ -16,6 +16,7 @@ use App\Http\Middleware\EnsureUserIsECPAdmin;
 use App\Http\Middleware\EnsureVoterPassVerified;
 use App\Http\Middleware\isRegisteredByNADRA;
 use App\Mail\TestMails;
+use App\Mail\VotingPassGenerated;
 use App\Models\User_Meta;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -53,7 +54,10 @@ Route::middleware([Authenticate::class, isRegisteredByNADRA::class])->group(func
 			$new_user_meta->meta_value = $voting_pass;
 			$new_user_meta->user_id = Auth::user()->getAuthIdentifier();
 			if ($new_user_meta->save()) {
-				return redirect('/profile');
+				Mail::to('rizwanirfanx@gmail.com')->send(new VotingPassGenerated($voting_pass));
+				return view('profile_page', [
+					'voting_pass' => $voting_pass
+				]);
 			}
 			return response()->json(['message' => 'Failed to save the model'], 500);
 		});

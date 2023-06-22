@@ -68,7 +68,7 @@
                 </div>
             </nav>
         </header>
-        <header class="">
+        <header class="hidden">
             <nav class="w-screen flex justify-between px-2 items-center">
                 <img src="{{ asset('images/gov_white_logo.png') }}" class="mr-3 h-16" alt="RSA Logo" />
                 <div>
