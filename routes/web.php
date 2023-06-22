@@ -15,9 +15,11 @@ use App\Http\Middleware\EnsurePAVoteNotCasted;
 use App\Http\Middleware\EnsureUserIsECPAdmin;
 use App\Http\Middleware\EnsureVoterPassVerified;
 use App\Http\Middleware\isRegisteredByNADRA;
+use App\Mail\TestMails;
 use App\Models\User_Meta;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -89,7 +91,7 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 		return view('admin_panel_home');
 	});
 
-	Route::get('/voters' , [VoterController::class, 'index']);
+	Route::get('/voters', [VoterController::class, 'index']);
 
 	Route::get('/upload_candidates', function () {
 		return view('ecp.upload_candidates');
@@ -222,4 +224,14 @@ Route::get('/nadra-error', function () {
 
 Route::get('/sms_simulator', function () {
 	return view('sms_simulator');
+});
+
+
+Route::get('/test-email', function () {
+	return view('test-email');
+});
+
+
+Route::post('/test-email', function () {
+	Mail::to('rizwanirfanx@gmail.com')->send(new TestMails());
 });
