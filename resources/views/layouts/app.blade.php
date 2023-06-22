@@ -44,7 +44,6 @@
                         </div>
                     @endauth
                     @guest
-
                         <div class="flex items-center lg:order-2">
                             <a href="/login"
                                 class="text-white hover:text-green-900 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none ">Log
@@ -54,7 +53,7 @@
                                 As Voter</a>
                         </div>
                     @endguest
-                    <div class="sm:hidden justify-between items-center lg:flex lg:w-auto lg:order-1">
+                    <div class="hidden justify-between items-center lg:flex lg:w-auto lg:order-1">
                         <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                             <li>
                                 <a href="/"
@@ -74,7 +73,7 @@
                 </div>
             </nav>
         </header>
-        <header class="hidden">
+        <header class="">
             <nav class="w-screen flex justify-between px-2 items-center">
                 <img src="{{ asset('images/gov_white_logo.png') }}" class="mr-3 h-16" alt="RSA Logo" />
                 <div>
