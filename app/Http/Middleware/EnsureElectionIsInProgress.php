@@ -17,7 +17,6 @@ class EnsureElectionIsInProgress
 	 */
 	public function handle(Request $request, Closure $next): Response
 	{
-		next($request);
 		$election_starting_time = ElectionMeta::where('meta_key', 'starting_time')->first();
 		$election_ending_time = ElectionMeta::where('meta_key', 'ending_time')->first();
 
@@ -33,18 +32,20 @@ class EnsureElectionIsInProgress
 				),
 			);
 		}
-		$est = DateTime::createFromFormat(
-			'Y-m-d',
-			$election_starting_time->meta_value,
-		);
-		$eet = DateTime::createFromFormat(
-			'Y-m-d',
-			$election_ending_time->meta_value
-		);
-		ddd($est);
+		$est = DateTime::createFromFormat("Y-m-d H:i:s", $election_starting_time->meta_value);
+		$eet = DateTime::createFromFormat("Y-m-d H:i:s", $election_ending_time->meta_value);
 
-		$diff = ($election_starting_time->diff($election_ending_time));
-		ddd($diff);
+
+		$currentDate = new DateTime(); // Current date and time
+
+		if ($currentDate >= $est && $currentDate <= $eet) {
+			next($request);
+		} else {
+			return response(view('error_page', [
+				'error_title' => 'Election is not in progress',
+				'error_message' => 'Election Starting Time is ' . $election_starting_time->meta_value . ' and Election Ending Time is ' . $election_ending_time->meta_value,
+			]));
+		}
 		return $next($request);
 	}
 }
