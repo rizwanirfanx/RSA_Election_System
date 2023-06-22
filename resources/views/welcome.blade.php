@@ -5,6 +5,7 @@
 
 @section('content')
 
+	<h1>Checking if Git Pushes are working</h1>
     <div class="h-screen bg-contain bg-no-repeat "
         style="background-image: url({{ asset('images/hero_section_image.jpg') }});">
 
