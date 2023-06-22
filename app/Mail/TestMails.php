@@ -28,8 +28,8 @@ class TestMails extends Mailable
 	public function envelope(): Envelope
 	{
 		return new Envelope(
-			from: new Address('saad@pakdevelopers.org', 'Saad'),
-			subject: 'Order Shipped',
+			from: new Address('saad@pakdevelopers.org', 'ECP'),
+			subject: 'Boys Boys Boys',
 		);
 	}
 
