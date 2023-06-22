@@ -105,6 +105,9 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 		return view('ecp.settings');
 	});
 
+	Route::post('/delete/election_timing', [ElectionsMetaController::class, 'destroy']);
+
+
 	Route::get('/display_results/{na_constituency_number}', [ECPController::class, 'displayIndividualNAResult']);
 
 	Route::get('/display_pa_results/{pa_code}', [ECPController::class, 'displayIndividualPAResult']);

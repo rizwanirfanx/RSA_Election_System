@@ -96,8 +96,14 @@ class ElectionsMetaController extends Controller
 	/**
 	 * Remove the specified resource from storage.
 	 */
-	public function destroy(string $id)
+	public function destroy()
 	{
+		ElectionMeta::where('meta_key', 'starting_time')->delete();
+		ElectionMeta::where('meta_key', 'ending_time')->delete();
+		return view('ecp.success_page', [
+			'title' => 'Election Timing Deleted Successfully',
+			'description' => 'Election Time has been Deleted Successfully',
+		]);
 		//
 	}
 }
