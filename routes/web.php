@@ -64,7 +64,6 @@ Route::middleware([Authenticate::class, isRegisteredByNADRA::class])->group(func
 		});
 	});
 
-
 	Route::get('/verify_account', [UserController::class, 'displayVerifyAccountPage']);
 
 	Route::post('/verify_account', [UserController::class, 'verify_account']);
