@@ -54,7 +54,7 @@ Route::middleware([Authenticate::class, isRegisteredByNADRA::class])->group(func
 			$new_user_meta->meta_value = $voting_pass;
 			$new_user_meta->user_id = Auth::user()->getAuthIdentifier();
 			if ($new_user_meta->save()) {
-				Mail::to('rizwanirfanx@gmail.com')->send(new VotingPassGenerated($voting_pass));
+				Mail::to(Auth::user()->email)->send(new VotingPassGenerated($voting_pass));
 				return view('verification_successful', [
 					'title' => 'Voting Passing Sent!',
 					'description' => 'Voting Pass has been sent to your Registered Email ' . Auth::user()->email,
