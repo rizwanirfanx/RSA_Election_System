@@ -112,6 +112,10 @@ class VoterController extends Controller
 			'candidate_id' => $request_body["candidate_id"],
 			'pa_code' => $request_body["pa_code"],
 		]);
+		return view('verification_successful', [
+			'title' => 'PA Vote Casted Successfully',
+			'description' => 'You have successfully casted your PA Vote',
+		]);
 	}
 	public function index()
 	{

@@ -182,6 +182,7 @@ Route::middleware([Authenticate::class, isRegisteredByNADRA::class,  EnsureVoter
 });
 
 
+Route::get('/display_results', [ECPController::class, 'displayResults']);
 
 Route::get('/', function () {
 	if (Auth::check()) {
