@@ -1,4 +1,4 @@
-<footer class="p-4 sm:p-6 mt-6 bg-green-900">
+<footer class="p-4 sm:p-6 bg-green-900">
     <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8" />
     <div class="md:flex md:justify-between">
         <div class="mb-6 md:mb-0">

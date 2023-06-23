@@ -9,11 +9,12 @@
         style="background-image: url({{ asset('images/hero_section_image.jpg') }});">
 
     </div>
-		<x-cta_section/>
+    <x-cta_section />
     <x-team />
-    <div style="background-image: url({{ asset('images/hero.webp') }});" class="bg-no-repeat bg-cover py-5">
+    <div style="x" class="bg-gray-900 bg-no-repeat bg-cover py-5">
 
-        <div class="bg-gray-200 opacity-90 w-4/6 mx-auto mt-5 py-40 px-6 rounded flex flex-col  items-center">
+        <h1 class="text-center text-white text-4xl">Get Started </h1>
+        <div class="bg-slate-800 text-white opacity-90 w-4/6 mx-auto mt-5 py-40 px-6 rounded flex flex-col  items-center">
             <h1 class="my-3">Welcome to Online Election System for Pakistan</h1>
             <p class="my-3">This Online Voting System is open for all Pakistani who are eligible for voting</p>
             @auth
