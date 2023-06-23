@@ -28,6 +28,31 @@
                 @else
                     <x-info-table.table-row key="Voting Pass" :value="$voter_pass" />
                 @endif
+                <tr class="bg-white border-b ">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                        Election Starting Time
+                    </th>
+                    <td class="px-6 py-4">
+                        @if ($election_starting_time)
+                            {{ $election_starting_time }}
+                        @else
+													Date Not Announced Yet
+                        @endif
+
+                    </td>
+                </tr>
+                <tr class="bg-white border-b ">
+                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap ">
+                        Election Ending Time
+                    </th>
+                    <td class="px-6 py-4">
+                        @if ($election_ending_time)
+                            {{ $election_ending_time }}
+                        @else
+													Date Not Announced Yet
+                        @endif
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>

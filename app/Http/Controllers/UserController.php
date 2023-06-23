@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ElectionMeta;
 use App\Models\User;
 use App\Models\User_Meta;
 use App\Models\VoterPhoneNumber;
@@ -100,12 +101,21 @@ class UserController extends Controller
 
 		$user_verification_status = Auth::user()->meta_data()->where('meta_key', 'is_verified')->first();
 
+		$starting_time = ElectionMeta::where('meta_key', 'starting_time')->first()
+			?->meta_value;
+		$ending_time = ElectionMeta::where('meta_key', 'ending_time')->first()
+			?->meta_value;
+
+
 		return view(
 			'profile_page',
 			[
 				'user' => Auth::user(),
 				'user_verification_status' => $user_verification_status,
-				'voter_pass' => $user_voting_pass
+				'voter_pass' => $user_voting_pass,
+				'election_starting_time' => $starting_time,
+				'election_ending_time' => $ending_time,
+
 			]
 		);
 	}
