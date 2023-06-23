@@ -350,6 +350,10 @@ class ECPController extends Controller
 				'cnic' => $user->cnic,
 			]
 		);
+		return view('ecp.success_page', [
+			'title' => 'NADRA Record Added Successfully',
+			'description' => 'NADRA Record has been Added Successfully'
+		]);
 	}
 	public function displayAddPACandidatePage()
 	{
