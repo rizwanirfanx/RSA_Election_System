@@ -8,6 +8,9 @@
                         Candidate Name
                     </th>
                     <th scope="col" class="px-6 py-3">
+                        Candidate CNIC
+                    </th>
+                    <th scope="col" class="px-6 py-3">
                         Candidate Constituency Number
                     </th>
                     <th scope="col" class="px-6 py-3">
@@ -26,6 +29,9 @@
                     <tr class="bg-white border-b ">
                         <td class="px-6 py-4">
                             {{ $candidate->name }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ $candidate->cnic }}
                         </td>
                         <td class="px-6 py-4">
                             {{ $candidate->constituency_number }}
