@@ -18,6 +18,7 @@
             <x-nav-components.nav-button title="My Info" link="/profile" icon="fa-users" />
             <x-nav-components.nav-button title="Vote" link="/vote" icon="fa-check-to-slot" />
             <x-nav-components.nav-button title="Verify Voting Pass" link="/verify_voting_pass" icon="fa-check" />
+            <x-nav-components.nav-button title="Display Results" link="/auth/display_results" icon="fa-eye" />
             <x-nav-components.nav-button title="Logout" link="/logout" icon="fa-arrow-right-from-bracket" />
         </div>
         <div class="bg-gray-300 col-span-8 ">

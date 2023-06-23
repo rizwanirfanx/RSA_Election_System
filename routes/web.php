@@ -36,6 +36,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware([Authenticate::class])->group(function () {
+	Route::get('/auth/display_results', [VoterController::class, 'displayResults']);
+	Route::get('auth/display_results/{na_constituency_number}', [VoterController::class, 'displayIndividualNAResult']);
+	
+Route::get('auth/display_pa_results/{pa_code}', [VoterController::class, 'displayIndividualPAResult']);
+});
+
 Route::middleware([Authenticate::class, isRegisteredByNADRA::class])->group(function () {
 
 
