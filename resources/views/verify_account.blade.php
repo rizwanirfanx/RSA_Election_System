@@ -51,7 +51,7 @@
                     </div>
                 @endforeach
             </div>
-            <input type="submit" />
+            <input type="submit" class="bg-green-800 p-2 rounded-md mt-2 w-2/5 mx-auto text-white hover:cursor-pointer " />
         </form>
     </div>
 

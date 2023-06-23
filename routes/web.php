@@ -9,6 +9,7 @@ use App\Http\Controllers\VoteController;
 use App\Http\Controllers\VoterController;
 use App\Http\Controllers\VotingPageController;
 use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\EnsureAccountIsNotBlocked;
 use App\Http\Middleware\EnsureAccountIsVerified;
 use App\Http\Middleware\EnsureElectionIsInProgress;
 use App\Http\Middleware\EnsurePAVoteNotCasted;
@@ -44,42 +45,46 @@ Route::middleware([Authenticate::class, isRegisteredByNADRA::class])->group(func
 
 		Route::post('/cast_pa_vote', [VoterController::class, 'castPAVote']);
 	});
-	Route::get('/cast_pa_vote', [VotingPageController::class, 'displayPAVotingPage']);
 
-	Route::middleware([EnsureAccountIsVerified::class])->group(function () {
-		Route::get('/generate_voting_pass', function () {
-			$voting_pass =  Hash::make(Auth::user()->email_address);
-			$new_user_meta = new User_Meta;
-			$new_user_meta->meta_key = 'voting_pass';
-			$new_user_meta->meta_value = $voting_pass;
-			$new_user_meta->user_id = Auth::user()->getAuthIdentifier();
-			if ($new_user_meta->save()) {
-				Mail::to(Auth::user()->email)->send(new VotingPassGenerated($voting_pass));
-				return view('verification_successful', [
-					'title' => 'Voting Passing Sent!',
-					'description' => 'Voting Pass has been sent to your Registered Email ' . Auth::user()->email,
-				]);
-			}
-			return response()->json(['message' => 'Failed to save the model'], 500);
+	Route::middleware([EnsureAccountIsNotBlocked::class])->group(function () {
+		Route::get('/cast_pa_vote', [VotingPageController::class, 'displayPAVotingPage']);
+		Route::middleware([EnsureAccountIsVerified::class])->group(function () {
+			Route::get('/generate_voting_pass', function () {
+				$voting_pass =  Hash::make(Auth::user()->email_address);
+				$new_user_meta = new User_Meta;
+				$new_user_meta->meta_key = 'voting_pass';
+				$new_user_meta->meta_value = $voting_pass;
+				$new_user_meta->user_id = Auth::user()->getAuthIdentifier();
+				if ($new_user_meta->save()) {
+					Mail::to(Auth::user()->email)->send(new VotingPassGenerated($voting_pass));
+					return view('verification_successful', [
+						'title' => 'Voting Passing Sent!',
+						'description' => 'Voting Pass has been sent to your Registered Email ' . Auth::user()->email,
+					]);
+				}
+				return response()->json(['message' => 'Failed to save the model'], 500);
+			});
 		});
+		Route::get('/verify_account', [UserController::class, 'displayVerifyAccountPage']);
+
+		Route::post('/verify_account', [UserController::class, 'verify_account']);
+
+		Route::post('/verify_voting_pass', [VoterController::class, 'verifyVotingPass']);
 	});
 
-	Route::get('/verify_account', [UserController::class, 'displayVerifyAccountPage']);
 
-	Route::post('/verify_account', [UserController::class, 'verify_account']);
 
 	Route::get('/verify_voting_pass', function () {
 		return view('voter_pass_verification');
-	});
+	})->middleware(EnsureAccountIsNotBlocked::class);
 
-	Route::post('/verify_voting_pass', [VoterController::class, 'verifyVotingPass']);
 
 	Route::get('/verification_successful', function () {
 		return view('verification_successful');
 	});
 });
 
-Route::middleware([Authenticate::class])->group(function () {
+Route::middleware([Authenticate::class, EnsureAccountIsNotBlocked::class])->group(function () {
 
 	Route::get('/', [UserController::class, 'displayProfilePage']);
 
