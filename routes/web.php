@@ -17,6 +17,7 @@ use App\Http\Middleware\EnsureVoterPassVerified;
 use App\Http\Middleware\isRegisteredByNADRA;
 use App\Mail\TestMails;
 use App\Mail\VotingPassGenerated;
+use App\Models\ElectionMeta;
 use App\Models\User_Meta;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -101,7 +102,13 @@ Route::middleware([Authenticate::class, EnsureUserIsECPAdmin::class])->prefix('a
 	});
 
 	Route::get('/settings', function () {
-		return view('ecp.settings');
+		$election_starting_time = ElectionMeta::where('meta_key', 'starting_time')->first()?->meta_value;
+		$election_ending_time = ElectionMeta::where('meta_key', 'ending_time')->first()?->meta_value;
+
+		return view('ecp.settings', [
+			'election_starting_time' => $election_starting_time,
+			'election_ending_time' => $election_ending_time
+		]);
 	});
 
 	Route::post('/delete/election_timing', [ElectionsMetaController::class, 'destroy']);

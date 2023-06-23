@@ -26,7 +26,51 @@
 
     <form method="post" action="/admin/delete/election_timing">
         @csrf
-        <input type="submit" value="Delete Election Timing" class="mt-4 bg-red-600 text-white p-2 hover:cursor-pointer"/>
+        <input type="submit" value="Delete Election Timing"
+            class="mt-4 bg-red-600 text-white p-2 hover:cursor-pointer" />
     </form>
+
+    <div class="relative overflow-x-auto rounded-lg">
+        <table class="w-full text-sm text-left text-gray-500 ">
+            <thead class="text-xs text-gray-800 uppercase bg-gray-100 ">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Election Time
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="bg-white border-b ">
+                    <td class="px-6 py-4">
+											Election Starting Time
+                    </td>
+                    <td class="px-6 py-4">
+                        @if ($election_starting_time)
+                            {{ $election_starting_time }}
+                        @else
+                            Not Assigned Date for Elections
+                        @endif
+                    </td>
+                </tr>
+                <tr class="bg-white border-b ">
+                    <td class="px-6 py-4">
+                        Election Ending Time
+                    </td>
+                    <td class="px-6 py-4">
+                        @if ($election_starting_time)
+                            {{ $election_ending_time }}
+                        @else
+                            Not Assigned Date for Elections
+                        @endif
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
 
 </x-layout>
