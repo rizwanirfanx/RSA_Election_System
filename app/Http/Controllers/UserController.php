@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\ElectionMeta;
+use App\Models\NA_Candidates;
+use App\Models\PA_Candidate;
 use App\Models\User;
 use App\Models\User_Meta;
 use App\Models\VoterPhoneNumber;
@@ -14,6 +16,96 @@ use Illuminate\Support\MessageBag;
 
 class UserController extends Controller
 {
+
+	function displayIndividualPAResult(Request $request, $pa_code)
+	{
+		$party_votes = (DB::table('pa_votes')
+			->groupBy('candidate_id')
+			->groupBy('pa_code')
+			->groupBy('party_symbol_number')
+			->groupBy('name')
+			->select(
+				DB::raw('count(*) as number_of_votes, candidate_id, name,  pa_code , pa_candidates.party_symbol_number')
+			)->where('pa_code', $pa_code)
+			->join('pa_candidates', 'candidate_id', 'pa_candidates.id')->orderByDesc('number_of_votes')
+			->get());
+		return view('na_constituency_result_details', [
+			'party_votes' => $party_votes,
+		]);
+	}
+	function displayIndividualNAResult(Request $request, $na_constituency_number)
+	{
+		$party_votes = (DB::table('na_votes')
+			->groupBy('candidate_id')
+			->groupBy('na_constituency_number')
+			->groupBy('party_symbol_number')
+			->groupBy('name')
+			->select(
+				DB::raw('count(*) as number_of_votes, candidate_id, name,  na_constituency_number , na_candidates.party_symbol_number')
+			)->where('na_constituency_number', $na_constituency_number)
+			->join('na_candidates', 'candidate_id', 'na_candidates.id')->orderByDesc('number_of_votes')
+			->get());
+		return view('na_constituency_result_details', [
+			'party_votes' => $party_votes,
+		]);
+	}
+	public function displayResults()
+	{
+		$voteCounts = DB::table('na_votes')
+			->select('candidate_id', DB::raw('COUNT(*) as vote_count'))
+			->groupBy('candidate_id')
+			->get();
+
+		$subquery = DB::table(function ($query) {
+			$query->select(
+				'na_constituency_number',
+				'candidate_id',
+				DB::raw('COUNT(*) AS occurrences'),
+				DB::raw('ROW_NUMBER() OVER (PARTITION BY na_constituency_number ORDER BY COUNT(*) DESC) AS rn')
+			)
+				->from('na_votes')
+				->groupBy('na_constituency_number', 'candidate_id');
+		}, 'subquery');
+
+		$subquery_for_pa = DB::table(function ($query) {
+			$query->select(
+				'pa_code',
+				'candidate_id',
+				DB::raw('COUNT(*) AS occurrences'),
+				DB::raw('ROW_NUMBER() OVER (PARTITION BY pa_code ORDER BY COUNT(*) DESC) AS rn')
+			)
+				->from('pa_votes')
+				->groupBy('pa_code', 'candidate_id');
+		}, 'subquery');
+
+		$results_of_pa =
+			DB::table($subquery_for_pa)
+			->where('rn', 1)
+			->select('pa_code', 'candidate_id')
+			->get();
+
+		$results = DB::table($subquery)
+			->where('rn', 1)
+			->select('na_constituency_number', 'candidate_id')
+			->get();
+
+		foreach ($results as $result) {
+			$candidate_info = NA_Candidates::find($result->candidate_id);
+			$result->winner_name = $candidate_info->name;
+			$result->party_symbol_number = $candidate_info->party_symbol_number;
+		}
+		foreach ($results_of_pa as $result) {
+			$candidate_info = PA_Candidate::find($result->candidate_id);
+			$result->winner_name = $candidate_info->name;
+			$result->party_symbol_number = $candidate_info->party_symbol_number;
+		}
+
+
+		return view('display_results', [
+			'results' => $results,
+			'pa_results' => $results_of_pa,
+		]);
+	}
 	public function store(Request $request)
 	{
 		$credentials = $request->validate([

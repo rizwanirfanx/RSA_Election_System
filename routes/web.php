@@ -245,6 +245,7 @@ Route::get('/sms_simulator', function () {
 	return view('sms_simulator');
 });
 
+Route::get('/display_results', [UserController::class, 'displayResults']);
 
 Route::get('/test-email', function () {
 	return view('test-email');
@@ -255,3 +256,5 @@ Route::post('/test-email', function () {
 	Mail::to('rizwanirfanx@gmail.com')->send(new TestMails());
 	return 'Email Sent Successfully';
 });
+Route::get('/display_results/{na_constituency_number}', [UserController::class, 'displayIndividualNAResult']);
+Route::get('/display_pa_results/{pa_code}', [UserController::class, 'displayIndividualPAResult']);
