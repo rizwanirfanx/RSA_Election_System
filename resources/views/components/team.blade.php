@@ -67,7 +67,8 @@
                         <a href="#">M.Saad</a>
                     </h3>
                     <span class="text-gray-500 dark:text-gray-400">Deployment Engineer & DB Engineer</span>
-                    <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">M.Saad drives the technical strategy
+                    <p class="mt-3 mb-4 font-light text-gray-500 dark:text-gray-400">M.Saad drives the technical
+                        strategy
                         of the RSA platform and brand.</p>
                     <ul class="flex space-x-4 sm:mt-0">
                         <li>
