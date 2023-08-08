@@ -10,13 +10,18 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Tech Stack
+Laravel
+TailwindCSS
+
+## Project was built on
+php ^8.1
+
 ## About RSA
 
 *Currently Under Development*
 
 RSA is an online Election System Developed for Pakistan's National And Provinical Assembly's Election. 
-
-
 
 ## Contributing
 
@@ -28,12 +33,8 @@ In order to ensure that the Laravel community is welcoming to all, please review
 
 ## Security Vulnerabilities
 
-<<<<<<< HEAD
 If you discover a security vulnerability within RSA, please send an e-mail to Rizwan Irfan or M.Saad via [rizwanirfanx@gmail.com](mailto:rizwanirfanx@gmail.com) , [saadwisdom452@gmail.com](mailto:saadwisdom452@gmail.com). All security vulnerabilities will be promptly addressed.
 
 
-I  checking the pull command 
 
 
-If you discover a security vulnerability within RSA, please send an e-mail to Rizwan Irfan or M.Saad via [rizwanirfanx@gmail.com](mailto:rizwanirfanx@gmail.com) , [saadwisdom452@gmail.com] (mailto:saadwisdom452@gmail.com). All security vulnerabilities will be promptly addressed.
->>>>>>> 2a1d0d618b801bf22e5ea3acb671cfbbdb136124
